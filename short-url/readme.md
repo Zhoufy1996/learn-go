@@ -13,3 +13,13 @@ http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=tokyo&sll=37.0625,-9
 #### 1.2. 重定向 (Redirect)
 
 短网址被请求时，会把用户重定向到原始的长 URL。因此如果你在浏览器输入网址 (B)，会被重定向到页面 (A)。
+
+1. struct 传的是地址?
+2. Lock为什么会导致不能写入
+3. gob
+4. panic
+5. defer
+6. go
+7. json
+
+如何获取线程数量
