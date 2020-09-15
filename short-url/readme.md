@@ -21,5 +21,4 @@ http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q=tokyo&sll=37.0625,-9
 5. defer
 6. go
 7. json
-
-如何获取线程数量
+8. 如何获取协程数量runtime.NumGoroutine()
