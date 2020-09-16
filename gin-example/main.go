@@ -2,7 +2,10 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"net/http"
+	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,7 +13,62 @@ import (
 func getting(c *gin.Context) {}
 
 func main() {
-	router := gin.Default()
+	// log file
+	gin.DisableConsoleColor()
+
+	// output color
+	gin.ForceConsoleColor()
+
+	f, _ := os.Create("gin.log")
+	gin.DefaultWriter = io.MultiWriter(f)
+
+	// middleware
+	router := gin.New()
+
+	// custom log format
+
+	router.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
+
+		// your custom format
+		return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
+			param.ClientIP,
+			param.TimeStamp.Format(time.RFC1123),
+			param.Method,
+			param.Path,
+			param.Request.Proto,
+			param.StatusCode,
+			param.Latency,
+			param.Request.UserAgent(),
+			param.ErrorMessage,
+		)
+	}))
+
+	// log
+	router.Use(gin.Logger())
+	// recovery
+	router.Use(gin.Recovery())
+
+	// custom recovery
+	// router.Use(gin.CustomRecovery(func(c *gin.Context, recovered interface{}) {
+	// 	if err, ok = recovered.(string); ok {
+	// 		c.String(http.StatusInternalServerError, fmt.Sprintf("error: %s", err))
+
+	// 	}
+	// 	c.AbortWithStatus(http.StatusInternalServerError)
+	// }))
+
+	// 自定义中间件
+	// router.GET("/benchmark", MyBenchLogger(), benchEndpoint)
+	authorized := router.Group("/")
+
+	authorized.Use(gin.BasicAuth(gin.Accounts{
+		"foo":  "bar",
+		"manu": "123",
+	}))
+	{
+		authorized.POST("login", func(c *gin.Context) {})
+	}
+
 	// quick start
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{

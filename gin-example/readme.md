@@ -21,4 +21,28 @@ router.GET("/user/:name", func(c *gin.Context) {
 1. DefaultQuery(name)
 2. Query(name)
 
-### form
+### 4. form(body ?)
+
+### 5. files
+
+### 6. router group
+
+### 7. middleware
+1. log: color/file/format
+2. recovery
+3. auth
+4. custom
+
+### 8. model binding and validation
+1. json
+2. custom binding
+3. querystring
+4. uri
+5. header
+
+### 9. redirects
+1. c.Redirect(http.StatusFound, "/foo)
+
+### 10. custom middleware
+1. Goroutines inside a middleware c.Copy
+2. cookie c.Cookie
