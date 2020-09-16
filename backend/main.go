@@ -1,8 +1,14 @@
 package main
 
 import (
+	"backend/models"
+
 	"github.com/gin-gonic/gin"
 )
+
+func init() {
+	models.SetUp()
+}
 
 func main() {
 	r := gin.Default()

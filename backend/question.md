@@ -11,3 +11,15 @@ go env -w GOPROXY=https://goproxy.cn
 重启计算机┓( ´∀` )┏
 
 ### 4. 读取本地模块
+```go
+import "backedn/models"
+```
+
+### 5.lint报错
+exported function SetUp should have comment or be unexported
+
+需要给导出的函数/结构体添加注释
+
+### 6. exec: "gcc": executable file not found in %PATH%
+1. 安装gcc
+2. vscode 安装 c插件
