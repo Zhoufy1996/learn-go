@@ -23,3 +23,12 @@ exported function SetUp should have comment or be unexported
 ### 6. exec: "gcc": executable file not found in %PATH%
 1. 安装gcc
 2. vscode 安装 c插件
+
+### 7. running gcc failed: exit status 1
+
+
+### 8. 安装Microsoft-Windows-Subsystem-Linux
+放弃windows
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+
+root sudo rm
