@@ -31,4 +31,4 @@ exported function SetUp should have comment or be unexported
 放弃windows
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 
-root sudo rm
+root sudo su
