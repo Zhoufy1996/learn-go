@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	iniFileName = "app.ini"
+	iniFileName = "config/app.ini"
 )
 
 type note struct {
@@ -55,7 +55,12 @@ func main() {
 	}
 
 	fmt.Println("init success")
-	cfg.SaveTo(iniFileName)
+	err = cfg.SaveTo(iniFileName)
+
+	if err != nil {
+		fmt.Printf("save to %v failed \n", iniFileName)
+		return
+	}
 
 	// if os.IsExist(iniFileName) {
 	// 	// err = error("%v is not exist", iniFileName)

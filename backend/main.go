@@ -1,14 +1,14 @@
 package main
 
 import (
-	"backend/models"
+	"backend/pkg/setting"
 	"fmt"
 
 	"github.com/gin-gonic/gin"
 )
 
 func init() {
-	models.SetUp()
+	setting.SetUp()
 }
 
 func main() {
