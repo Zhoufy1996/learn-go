@@ -35,10 +35,13 @@ type env struct {
 }
 
 // DatabaseSetting a
-var DatabaseSetting = &Database{}
+var (
+	DatabaseSetting = &Database{}
+	AppSetting      = &App{}
+)
 
-// SetUp a
-func SetUp() {
+func getCfg() *env {
+	defer println("config init end")
 	cfg := ini.Empty()
 	var err error
 	var initEnv = &env{
@@ -60,30 +63,43 @@ func SetUp() {
 		fmt.Printf("%v load failed: %v \n", iniFilePath+iniFileName, err)
 		fmt.Println("use init config")
 
-		defer fmt.Printf("create a new %v \n", iniFileName)
-
 	} else {
 		fmt.Printf("%v has exist\n", iniFileName)
 		fmt.Println("start read config")
 
 		err = cfg.MapTo(initEnv)
 
+		if err != nil {
+			fmt.Printf("%v has error %v \n", iniFileName, err)
+			fmt.Println("use init config")
+			return initEnv
+		}
 	}
+
+	fmt.Printf("start update %v \n", iniFileName)
+	err = nil
 
 	err = ini.ReflectFrom(cfg, initEnv)
-
-	if err != nil {
-		fmt.Println("init failed")
-		return
-	}
 
 	err = cfg.SaveTo(iniFilePath + iniFileName)
 
 	if err != nil {
-		fmt.Printf("%v create failed \n", iniFilePath+iniFileName)
-		return
+		fmt.Printf("%v update failed \n", iniFilePath+iniFileName)
+		fmt.Println(err)
+		return initEnv
 	}
 
-	fmt.Println("init success")
+	fmt.Println("config init success")
+	return initEnv
+}
 
+// SetUp a
+func SetUp() {
+	cfg := getCfg()
+	DatabaseSetting = cfg.Database
+	AppSetting = cfg.App
+
+	fmt.Printf("DatabaseSetting: %v \n", DatabaseSetting)
+	fmt.Printf("AppSetting: %v \n", AppSetting)
+	fmt.Println("setting init end")
 }

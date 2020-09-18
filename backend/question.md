@@ -12,7 +12,7 @@ go env -w GOPROXY=https://goproxy.cn
 
 ### 4. 读取本地模块
 ```go
-import "backedn/models"
+import "backend/models"
 ```
 
 ### 5.lint报错

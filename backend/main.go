@@ -3,6 +3,7 @@ package main
 import (
 	"backend/pkg/setting"
 	"fmt"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,8 +20,7 @@ func main() {
 			"message": "pong",
 		})
 	})
-
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	r.Run(":" + strconv.Itoa(setting.AppSetting.Port)) // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
 
 // package main
