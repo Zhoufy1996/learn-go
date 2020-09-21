@@ -1,8 +1,8 @@
-package middleware
+package routers
 
 import "github.com/gin-gonic/gin"
 
-// SetUp is
+// Setting is
 func SetUp(r *gin.Engine) {
-	// c.Use()
+
 }

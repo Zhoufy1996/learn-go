@@ -1,32 +1,45 @@
 package main
 
 import (
+	"backend/middleware"
+	"backend/models"
 	"backend/pkg/setting"
+	"backend/routers"
 	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
+var r = gin.New()
+
+const (
+	separator      = "---------------"
+	shortSeparator = "----------"
+)
+
 func init() {
+	fmt.Println(separator, " init system start", separator)
+
+	fmt.Println(shortSeparator, " setting init start", shortSeparator)
 	setting.SetUp()
+	fmt.Println(shortSeparator, " setting init end ", shortSeparator)
+
+	fmt.Println(shortSeparator, " models init start", shortSeparator)
+	models.SetUp()
+	fmt.Println(shortSeparator, " models init end ", shortSeparator)
+
+	fmt.Println(shortSeparator, " middlewares init start", shortSeparator)
+	middleware.SetUp(r)
+	fmt.Println(shortSeparator, " middlewares init end ", shortSeparator)
+
+	fmt.Println(shortSeparator, " routers init start", shortSeparator)
+	routers.SetUp(r)
+	fmt.Println(shortSeparator, " routers init end ", shortSeparator)
+
+	fmt.Println(separator, " init system end ", separator)
 }
 
 func main() {
-	fmt.Print("start \n")
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run(":" + strconv.Itoa(setting.AppSetting.Port)) // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	r.Run(":" + strconv.Itoa(setting.AppSetting.Port))
 }
-
-// package main
-
-// import "fmt"
-
-// func main() {
-// 	fmt.Print("hi")
-// }
