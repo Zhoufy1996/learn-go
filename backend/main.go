@@ -6,7 +6,6 @@ import (
 	"backend/pkg/setting"
 	"backend/routers"
 	"fmt"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -41,5 +40,5 @@ func init() {
 }
 
 func main() {
-	r.Run(":" + strconv.Itoa(setting.AppSetting.Port))
+	r.Run(fmt.Sprintf(":%s", setting.AppSetting.Port))
 }

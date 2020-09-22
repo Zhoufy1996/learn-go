@@ -26,18 +26,25 @@ type Database struct {
 
 // App a
 type App struct {
-	Port int
+	Port string
 }
 
 type env struct {
 	App      *App
 	Database *Database
+	Script   *Scriptsa
+}
+
+// Scriptsa is
+type Scriptsa struct {
+	ShouldRunDbScript string
 }
 
 // DatabaseSetting a
 var (
 	DatabaseSetting = &Database{}
 	AppSetting      = &App{}
+	ScriptSetting   = &Scriptsa{}
 )
 
 func getCfg() *env {
@@ -46,7 +53,7 @@ func getCfg() *env {
 	var err error
 	var initEnv = &env{
 		App: &App{
-			Port: 8080,
+			Port: "8080",
 		},
 		Database: &Database{
 			Type:     "mysql",
@@ -54,6 +61,9 @@ func getCfg() *env {
 			Password: "zfy1996514",
 			Host:     "172.17.0.4:3306",
 			Name:     "GoLearn",
+		},
+		Script: &Scriptsa{
+			ShouldRunDbScript: "true",
 		},
 	}
 
@@ -98,8 +108,28 @@ func SetUp() {
 	cfg := getCfg()
 	DatabaseSetting = cfg.Database
 	AppSetting = cfg.App
+	ScriptSetting = cfg.Script
 
-	fmt.Printf("DatabaseSetting: %v \n", DatabaseSetting)
-	fmt.Printf("AppSetting: %v \n", AppSetting)
 	fmt.Println("setting init end")
+}
+
+// UpdateCfg is
+func UpdateCfg(section string, key string, value string) {
+	cfg, err := ini.Load(iniFilePath + iniFileName)
+
+	if err != nil {
+		fmt.Println("配置文件打开失败")
+		return
+	}
+
+	cfg.Section(section).Key(key).SetValue(value)
+
+	err = cfg.SaveTo(iniFilePath + iniFileName)
+
+	if err != nil {
+		fmt.Println("配置更新失败")
+	} else {
+		fmt.Println("配置更新成功")
+	}
+	return
 }

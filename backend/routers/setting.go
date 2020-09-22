@@ -1,8 +1,16 @@
 package routers
 
-import "github.com/gin-gonic/gin"
+import (
+	"net/http"
 
-// Setting is
+	"github.com/gin-gonic/gin"
+)
+
+// SetUp is
 func SetUp(r *gin.Engine) {
-
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"status": "ok",
+		})
+	})
 }
