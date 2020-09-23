@@ -37,7 +37,10 @@ type env struct {
 
 // Scriptsa is
 type Scriptsa struct {
-	ShouldRunDbScript string
+	User     string
+	Tag      string
+	Category string
+	Article  string
 }
 
 // DatabaseSetting a
@@ -63,7 +66,10 @@ func getCfg() *env {
 			Name:     "GoLearn",
 		},
 		Script: &Scriptsa{
-			ShouldRunDbScript: "true",
+			User:     "true",
+			Tag:      "true",
+			Category: "true",
+			Article:  "true",
 		},
 	}
 

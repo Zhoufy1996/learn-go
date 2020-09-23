@@ -1,9 +1,59 @@
 package models
 
+import (
+	"backend/pkg/setting"
+	"fmt"
+)
+
 func runScript() {
-	superUser := &User{
-		Name:     "zhou",
-		Password: "123456",
+	if strIsTrue(setting.ScriptSetting.User) {
+		superUser := &User{
+			Name:     "zhou",
+			Password: "123456",
+		}
+		err := CreateUser(superUser)
+		if err != nil {
+			fmt.Printf("%v", err)
+			setting.UpdateCfg("Script", "User", "false")
+		}
 	}
-	db.Create(superUser)
+
+	if strIsTrue(setting.ScriptSetting.Tag) {
+		newTag := &Tag{
+			Title: "new title",
+		}
+		err := CreateTag(newTag)
+		if err != nil {
+			fmt.Printf("%v", err)
+			setting.UpdateCfg("Script", "Tag", "false")
+		}
+	}
+
+	if strIsTrue(setting.ScriptSetting.Category) {
+		newCategory := &Category{
+			Title: "new category",
+		}
+		err := CreateCategory(newCategory)
+		if err != nil {
+			fmt.Printf("%v", err)
+			setting.UpdateCfg("Script", "Category", "false")
+		}
+	}
+
+	if strIsTrue(setting.ScriptSetting.Article) {
+		newArticle := &Article{
+			Title:    "new article",
+			SubTitle: "sub title",
+		}
+		err := CreateArticle(newArticle)
+		if err != nil {
+			fmt.Printf("%v", err)
+			setting.UpdateCfg("Script", "Article", "false")
+		}
+	}
+
+}
+
+func strIsTrue(str string) bool {
+	return str == "true"
 }

@@ -38,7 +38,7 @@ func SetUp() {
 
 	var err error
 
-	// 链接数据库
+	// 连接数据库
 	if setting.DatabaseSetting.Type == "mysql" {
 		var dsn = fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
 			setting.DatabaseSetting.User,
@@ -63,10 +63,7 @@ func SetUp() {
 
 	// 创建初始库
 	fmt.Println(setting.ScriptSetting)
-	if setting.ScriptSetting.ShouldRunDbScript == "true" {
-		fmt.Println("开始创建初始库")
-		runScript()
-		setting.UpdateCfg("Script", "ShouldRunDbScript", "false")
-		fmt.Println("初始库创建成功")
-	}
+	fmt.Println("开始创建初始库")
+	runScript()
+	fmt.Println("初始库创建成功")
 }
