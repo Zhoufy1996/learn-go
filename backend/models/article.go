@@ -11,3 +11,17 @@ type Article struct {
 	Category    Category `gorm:"foreignKey:ID"`
 	Tags        []Tag    `gorm:"many2many:ID"`
 }
+
+func GetArticle() {}
+
+func GetArticles() {}
+
+func GetArticleCount() {}
+
+func CreateArticle() {}
+
+func UpdateArticle() {}
+
+func DeleteArticle() {}
+
+func ClearArticle() {}
