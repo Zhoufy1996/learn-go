@@ -42,8 +42,11 @@ func runScript() {
 
 	if strIsTrue(setting.ScriptSetting.Article) {
 		newArticle := &Article{
-			Title:    "new article",
-			SubTitle: "sub title",
+			Title:      "new article",
+			SubTitle:   "sub title",
+			CategoryID: 1,
+			UserID:     1,
+			TagIDs:     []uint{1},
 		}
 		err := CreateArticle(newArticle)
 		if err != nil {

@@ -5,11 +5,12 @@ type Article struct {
 	Model
 	Title       string `gorm:"unique"`
 	SubTitle    string
-	CreateUser  User     `gorm:"foreignKey:ID"`
-	Description string   `gorm:"default:''"`
-	Body        string   `gorm:"default:''"`
-	Category    Category `gorm:"foreignKey:ID"`
-	Tags        []Tag    `gorm:"many2many:ID"`
+	UserID      uint
+	Description string `gorm:"default:''"`
+	Body        string `gorm:"default:''"`
+	CategoryID  uint
+	Tags        []Tag `gorm:"many2many:article_tags;References:ArticleIDs;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	TagIDs      []uint
 }
 
 // CreateArticle is

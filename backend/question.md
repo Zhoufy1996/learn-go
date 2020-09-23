@@ -32,3 +32,5 @@ exported function SetUp should have comment or be unexported
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 
 root sudo su
+
+### 9. 外键不会在表里生成
