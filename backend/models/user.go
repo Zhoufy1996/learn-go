@@ -7,8 +7,3 @@ type User struct {
 	Password string
 	Email    string `gorm:"default:''"`
 }
-
-// AutoMigrateUserModel func
-func AutoMigrateUserModel() {
-	db.AutoMigrate(&User{})
-}

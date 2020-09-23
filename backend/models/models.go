@@ -58,8 +58,7 @@ func SetUp() {
 
 	// 模型迁移
 	fmt.Println("开始迁移schema")
-	AutoMigrateUserModel()
-	AutoMigrateBlogModel()
+	db.AutoMigrate(&Category{}, &Tag{}, &Article{}, &User{})
 	fmt.Println("schema迁移完毕")
 
 	// 创建初始库
