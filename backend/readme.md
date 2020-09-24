@@ -29,3 +29,5 @@ format
 5. 校验
 6. 中间件 jwt log gredis
 7. router
+
+### how to test gorm model
