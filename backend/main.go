@@ -1,9 +1,9 @@
 package main
 
 import (
+	"backend/config"
 	"backend/middleware"
 	"backend/models"
-	"backend/pkg/setting"
 	"backend/routers"
 	"fmt"
 
@@ -21,7 +21,7 @@ func init() {
 	fmt.Println(separator, " init system start", separator)
 
 	fmt.Println(shortSeparator, " setting init start", shortSeparator)
-	setting.SetUp()
+	config.SetUp()
 	fmt.Println(shortSeparator, " setting init end ", shortSeparator)
 
 	fmt.Println(shortSeparator, " models init start", shortSeparator)
@@ -40,5 +40,5 @@ func init() {
 }
 
 func main() {
-	r.Run(fmt.Sprintf(":%s", setting.AppSetting.Port))
+	r.Run(fmt.Sprintf(":%s", config.AppSetting.Port))
 }

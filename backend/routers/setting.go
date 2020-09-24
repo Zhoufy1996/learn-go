@@ -13,4 +13,7 @@ func SetUp(r *gin.Engine) {
 			"status": "ok",
 		})
 	})
+
+	apiBaseGroup := r.Group("")
+	initTagRouter(apiBaseGroup)
 }

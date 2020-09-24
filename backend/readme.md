@@ -31,3 +31,17 @@ format
 7. router
 
 ### how to test gorm model
+
+### 分层
+#### 1. models
+1. 定义model
+2. sql
+#### 2. services
+1. 调用model.sql
+2. 组装数据
+#### 3. api.v1
+1. 校验参数
+2. 调用services
+3. 处理异常or返回数据
+
+#### 4. routers

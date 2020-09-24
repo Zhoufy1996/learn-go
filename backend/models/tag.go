@@ -10,16 +10,16 @@ type Tag struct {
 
 // GetTag is
 func GetTag(id uint) (*Tag, error) {
-	var tag *Tag
-	err := db.Where("ID = ?", id).First(tag).Error
-	return tag, err
+	var tag Tag
+	err := db.Where("ID = ?", id).First(&tag).Error
+	return &tag, err
 }
 
 // GetAllTags is
-func GetAllTags() ([]*Tag, error) {
-	var tags []*Tag
-	err := db.Find(tags).Error
-	return tags, err
+func GetAllTags() (*[]Tag, error) {
+	var tags []Tag
+	err := db.Find(&tags).Error
+	return &tags, err
 }
 
 // GetTagsCount is

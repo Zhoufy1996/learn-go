@@ -14,6 +14,7 @@ type Article struct {
 
 // CreateArticle is
 func CreateArticle(article *Article) error {
+
 	err := db.Model(&Article{}).Create(article).Error
 	return err
 }

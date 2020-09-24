@@ -1,12 +1,12 @@
 package models
 
 import (
-	"backend/pkg/setting"
+	"backend/config"
 	"fmt"
 )
 
 func runScript() {
-	if strIsTrue(setting.ScriptSetting.User) {
+	if strIsTrue(config.ScriptSetting.User) {
 		superUser := &User{
 			Name:     "zhou",
 			Password: "123456",
@@ -14,33 +14,33 @@ func runScript() {
 		err := CreateUser(superUser)
 		if err != nil {
 			fmt.Printf("%v", err)
-			setting.UpdateCfg("Script", "User", "false")
+			config.UpdateCfg("Script", "User", "false")
 		}
 	}
 
-	if strIsTrue(setting.ScriptSetting.Tag) {
+	if strIsTrue(config.ScriptSetting.Tag) {
 		newTag := &Tag{
 			Title: "new title",
 		}
 		err := CreateTag(newTag)
 		if err != nil {
 			fmt.Printf("%v", err)
-			setting.UpdateCfg("Script", "Tag", "false")
+			config.UpdateCfg("Script", "Tag", "false")
 		}
 	}
 
-	if strIsTrue(setting.ScriptSetting.Category) {
+	if strIsTrue(config.ScriptSetting.Category) {
 		newCategory := &Category{
 			Title: "new category",
 		}
 		err := CreateCategory(newCategory)
 		if err != nil {
 			fmt.Printf("%v", err)
-			setting.UpdateCfg("Script", "Category", "false")
+			config.UpdateCfg("Script", "Category", "false")
 		}
 	}
 
-	if strIsTrue(setting.ScriptSetting.Article) {
+	if strIsTrue(config.ScriptSetting.Article) {
 		tag, err := GetTag(1)
 		if err != nil {
 			fmt.Printf("%v", err)
@@ -56,7 +56,7 @@ func runScript() {
 		err = CreateArticle(newArticle)
 		if err != nil {
 			fmt.Printf("%v", err)
-			setting.UpdateCfg("Script", "Article", "false")
+			config.UpdateCfg("Script", "Article", "false")
 		}
 	}
 

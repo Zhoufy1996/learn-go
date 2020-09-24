@@ -1,7 +1,7 @@
 package models
 
 import (
-	"backend/pkg/setting"
+	"backend/config"
 	"fmt"
 	"time"
 
@@ -25,7 +25,7 @@ var validDB = [1]string{"mysql"}
 func SetUp() {
 	isValidDB := false
 	for _, dbType := range validDB {
-		if dbType == setting.DatabaseSetting.Type {
+		if dbType == config.DatabaseSetting.Type {
 			isValidDB = true
 			break
 		}
@@ -39,12 +39,12 @@ func SetUp() {
 	var err error
 
 	// 连接数据库
-	if setting.DatabaseSetting.Type == "mysql" {
+	if config.DatabaseSetting.Type == "mysql" {
 		var dsn = fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local",
-			setting.DatabaseSetting.User,
-			setting.DatabaseSetting.Password,
-			setting.DatabaseSetting.Host,
-			setting.DatabaseSetting.Name)
+			config.DatabaseSetting.User,
+			config.DatabaseSetting.Password,
+			config.DatabaseSetting.Host,
+			config.DatabaseSetting.Name)
 
 		db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
@@ -62,7 +62,6 @@ func SetUp() {
 	fmt.Println("schema迁移完毕")
 
 	// 创建初始库
-	fmt.Println(setting.ScriptSetting)
 	fmt.Println("开始创建初始库")
 	runScript()
 	fmt.Println("初始库创建成功")
