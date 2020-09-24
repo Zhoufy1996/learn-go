@@ -41,14 +41,19 @@ func runScript() {
 	}
 
 	if strIsTrue(setting.ScriptSetting.Article) {
+		tag, err := GetTag(1)
+		if err != nil {
+			fmt.Printf("%v", err)
+			return
+		}
 		newArticle := &Article{
 			Title:      "new article",
 			SubTitle:   "sub title",
 			CategoryID: 1,
 			UserID:     1,
-			TagIDs:     []uint{1},
+			Tags:       []Tag{*tag},
 		}
-		err := CreateArticle(newArticle)
+		err = CreateArticle(newArticle)
 		if err != nil {
 			fmt.Printf("%v", err)
 			setting.UpdateCfg("Script", "Article", "false")
