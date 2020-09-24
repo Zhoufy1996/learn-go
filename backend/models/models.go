@@ -11,10 +11,10 @@ import (
 
 // Model is
 type Model struct {
-	ID        uint `gorm:"primaryKey,autoIncrement" `
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt gorm.DeletedAt
+	ID        uint           `gorm:"primaryKey,autoIncrement" json:"id"`
+	CreatedAt time.Time      `json:"createdAt"`
+	UpdatedAt time.Time      `json:"updateAt"`
+	DeletedAt gorm.DeletedAt `json:"deletedAt"`
 }
 
 var db *gorm.DB

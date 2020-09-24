@@ -3,10 +3,10 @@ package models
 // User Model
 type User struct {
 	Model
-	Name     string    `gorm:"unique"`
-	Password string    `gorm:"default:123456"`
-	Email    string    `gorm:"default:''"`
-	Articles []Article `gorm:"foreignKey:UserID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Name     string    `gorm:"unique" json:"name"`
+	Password string    `gorm:"default:123456"l "json:"password""`
+	Email    string    `gorm:"default:''" json:"email"`
+	Articles []Article `gorm:"foreignKey:UserID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"articles"`
 }
 
 // CreateUser is

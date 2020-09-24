@@ -1,15 +1,17 @@
 package models
 
+import "gorm.io/gorm/clause"
+
 // Article is
 type Article struct {
 	Model
-	Title       string `gorm:"unique"`
-	SubTitle    string
-	UserID      uint
-	Description string `gorm:"default:''"`
-	Body        string `gorm:"default:''"`
-	CategoryID  uint
-	Tags        []Tag `gorm:"many2many:article_tags;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Title       string `gorm:"unique" json:"title"`
+	SubTitle    string `json:"subTitle"`
+	UserID      uint   `json:"userId"`
+	Description string `gorm:"default:''" json:"description"`
+	Body        string `gorm:"default:''" json:"body"`
+	CategoryID  uint   `json:"categoryId"`
+	Tags        []Tag  `gorm:"many2many:article_tags;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"tags"`
 }
 
 // CreateArticle is
@@ -21,9 +23,13 @@ func CreateArticle(article *Article) error {
 
 // GetArticle is
 func GetArticle(id uint) (*Article, error) {
-	var article *Article
-	err := db.Where("ID = ?", id).First(article).Error
-	return article, err
+	var article Article
+	err := db.Preload(clause.Associations).Where("ID = ?", id).First(&article).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &article, nil
 }
 
 // GetAllArticles is

@@ -3,27 +3,27 @@ package models
 // Category is
 type Category struct {
 	Model
-	Title       string    `gorm:"unique"`
-	Description string    `gorm:"default:''"`
-	Articles    []Article `gorm:"foreignKey:CategoryID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Title       string    `gorm:"unique" json:"title"`
+	Description string    `gorm:"default:''" json:"description"`
+	Articles    []Article `gorm:"foreignKey:CategoryID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"articles"`
 }
 
 // GetCategory is
 func GetCategory(id uint) (*Category, error) {
-	var category *Category
-	err := db.Where("ID = ?", id).First(category).Error
-	return category, err
+	var category Category
+	err := db.Where("ID = ?", id).First(&category).Error
+	return &category, err
 }
 
 // GetAllCategorys is
-func GetAllCategorys() ([]*Category, error) {
-	var categories []*Category
-	err := db.Find(categories).Error
-	return categories, err
+func GetAllCategorys() (*[]Category, error) {
+	var categories []Category
+	err := db.Find(&categories).Error
+	return &categories, err
 }
 
-// GetCategorysCount is
-func GetCategorysCount() (int64, error) {
+// GetCategoriesCount is
+func GetCategoriesCount() (int64, error) {
 	var count int64
 	err := db.Model(&Category{}).Count(&count).Error
 	if err != nil {

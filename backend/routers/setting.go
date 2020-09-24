@@ -16,4 +16,6 @@ func SetUp(r *gin.Engine) {
 
 	apiBaseGroup := r.Group("")
 	initTagRouter(apiBaseGroup)
+	initCategoryRouter(apiBaseGroup)
+	initArticleRouter(apiBaseGroup)
 }
