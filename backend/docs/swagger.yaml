@@ -1,5 +1,36 @@
+basePath: /v1
 info:
   contact: {}
+  description: This is a sample Server pets
   license: {}
-paths: {}
+  title: Swagger Example API
+  version: 0.0.1
+paths:
+  /fileUploadAndDownload/breakpointContinue:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: an example for breakpoint resume, 断点续传示例
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"上传成功"}'
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: 断点续传到服务器
+      tags:
+      - ExaFileUploadAndDownload
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: x-token
+    type: apiKey
 swagger: "2.0"

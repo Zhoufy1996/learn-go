@@ -10,8 +10,8 @@ func initTagRouter(router *gin.RouterGroup) {
 	apiRouter := router.Group("/tag")
 
 	{
-		apiRouter.GET("/all", v1.GetAllTags)
+		apiRouter.GET("/all", v1.GetAllTags) // 获取标签列表
 		apiRouter.GET("/count", v1.GetTagsCount)
-		apiRouter.GET("/id/:id", v1.GetTag)
+		apiRouter.GET("/id/:id", v1.GetTag) // 获取标签
 	}
 }

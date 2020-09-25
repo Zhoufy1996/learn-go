@@ -1,8 +1,56 @@
 {
     "swagger": "2.0",
     "info": {
+        "description": "This is a sample Server pets",
+        "title": "Swagger Example API",
         "contact": {},
-        "license": {}
+        "license": {},
+        "version": "0.0.1"
     },
-    "paths": {}
+    "basePath": "/v1",
+    "paths": {
+        "/fileUploadAndDownload/breakpointContinue": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ExaFileUploadAndDownload"
+                ],
+                "summary": "断点续传到服务器",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "an example for breakpoint resume, 断点续传示例",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "x-token",
+            "in": "header"
+        }
+    }
 }
