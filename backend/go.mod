@@ -22,7 +22,7 @@ require (
 	github.com/swaggo/swag v1.6.7
 	github.com/ugorji/go v1.1.8 // indirect
 	github.com/urfave/cli/v2 v2.2.0 // indirect
-	golang.org/x/net v0.0.0-20200923182212-328152dc79b1 // indirect
+	golang.org/x/net v0.0.0-20200925080053-05aa5d4ee321 // indirect
 	golang.org/x/sys v0.0.0-20200923182605-d9f96fdee20d // indirect
 	golang.org/x/tools v0.0.0-20200924224222-8d73f17870ce // indirect
 	google.golang.org/protobuf v1.25.0 // indirect

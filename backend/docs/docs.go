@@ -18,20 +18,17 @@ var doc = `{
     "info": {
         "description": "{{.Description}}",
         "title": "{{.Title}}",
-        "contact": {},
+        "contact": {
+            "email": "hellozfy1996@gmail.com"
+        },
         "license": {},
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/fileUploadAndDownload/breakpointContinue": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
+        "/tag/all": {
+            "get": {
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -39,34 +36,24 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "ExaFileUploadAndDownload"
+                    "GetAllTags"
                 ],
-                "summary": "断点续传到服务器",
-                "parameters": [
-                    {
-                        "type": "file",
-                        "description": "an example for breakpoint resume, 断点续传示例",
-                        "name": "file",
-                        "in": "formData",
-                        "required": true
-                    }
-                ],
+                "summary": "获取所有的Tag",
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    "400": {
+                        "description": "{\"error\"}",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 }
             }
-        }
-    },
-    "securityDefinitions": {
-        "ApiKeyAuth": {
-            "type": "apiKey",
-            "name": "x-token",
-            "in": "header"
         }
     }
 }`
@@ -83,11 +70,11 @@ type swaggerInfo struct {
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
 	Version:     "0.0.1",
-	Host:        "",
+	Host:        "127.0.0.1:8050",
 	BasePath:    "/v1",
 	Schemes:     []string{},
-	Title:       "Swagger Example API",
-	Description: "This is a sample Server pets",
+	Title:       "个人博客 API",
+	Description: "个人博客 go学习",
 }
 
 type s struct{}

@@ -1,21 +1,19 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a sample Server pets",
-        "title": "Swagger Example API",
-        "contact": {},
+        "description": "个人博客 go学习",
+        "title": "个人博客 API",
+        "contact": {
+            "email": "hellozfy1996@gmail.com"
+        },
         "license": {},
         "version": "0.0.1"
     },
+    "host": "127.0.0.1:8050",
     "basePath": "/v1",
     "paths": {
-        "/fileUploadAndDownload/breakpointContinue": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
+        "/tag/all": {
+            "get": {
                 "consumes": [
                     "multipart/form-data"
                 ],
@@ -23,34 +21,24 @@
                     "application/json"
                 ],
                 "tags": [
-                    "ExaFileUploadAndDownload"
+                    "GetAllTags"
                 ],
-                "summary": "断点续传到服务器",
-                "parameters": [
-                    {
-                        "type": "file",
-                        "description": "an example for breakpoint resume, 断点续传示例",
-                        "name": "file",
-                        "in": "formData",
-                        "required": true
-                    }
-                ],
+                "summary": "获取所有的Tag",
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    "400": {
+                        "description": "{\"error\"}",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 }
             }
-        }
-    },
-    "securityDefinitions": {
-        "ApiKeyAuth": {
-            "type": "apiKey",
-            "name": "x-token",
-            "in": "header"
         }
     }
 }

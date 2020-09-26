@@ -34,3 +34,8 @@ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-L
 root sudo su
 
 ### 9. 外键不会在表里生成
+
+### 10. 文档
+https://swaggo.github.io/swaggo.io/declarative_comments_format/general_api_info.html
+
+https://github.com/swaggo/swag/blob/master/README_zh-CN.md

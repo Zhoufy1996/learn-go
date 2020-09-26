@@ -9,14 +9,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// @Tags ExaFileUploadAndDownload
-// @Summary 断点续传到服务器
-// @Security ApiKeyAuth
-// @accept multipart/form-data
-// @Produce  application/json
-// @Param file formData file true "an example for breakpoint resume, 断点续传示例"
-// @Success 200 {string} string "{"success":true,"data":{},"msg":"上传成功"}"
-// @Router /fileUploadAndDownload/breakpointContinue [post]
 func GetTag(c *gin.Context) {
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
 
@@ -28,7 +20,14 @@ func GetTag(c *gin.Context) {
 	response.OkWithData(tag, c)
 }
 
-// GetAllTags is
+// GetAllTags api
+// @Tags GetAllTags
+// @Summary 获取所有的Tag
+// @accept multipart/form-data
+// @Produce  application/json
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"上传成功"}"
+// @Failure 400 {string} string "{"error"}"
+// @Router /tag/all [GET]
 func GetAllTags(c *gin.Context) {
 	tags, err := services.GetAllTags()
 	if err != nil {

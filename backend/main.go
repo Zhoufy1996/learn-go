@@ -40,12 +40,15 @@ func init() {
 
 }
 
-// @title Swagger Example API
+// @title 个人博客 API
 // @version 0.0.1
-// @description This is a sample Server pets
-// @securityDefinitions.apikey ApiKeyAuth
-// @in header
-// @name x-token
+// @description 个人博客 go学习
+// @tag.name tag
+// @tag.description tag description
+// @tag.docs.url doc url
+// @tag.docs.description doc description
+// @contact.email hellozfy1996@gmail.com
+// @host 127.0.0.1:8050
 // @BasePath /v1
 func main() {
 
