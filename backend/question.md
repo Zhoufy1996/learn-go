@@ -39,3 +39,9 @@ root sudo su
 https://swaggo.github.io/swaggo.io/declarative_comments_format/general_api_info.html
 
 https://github.com/swaggo/swag/blob/master/README_zh-CN.md
+
+
+### 11. 如何校验参数到绑定对象
+
+
+https://blog.csdn.net/qq_36431213/article/details/82967982

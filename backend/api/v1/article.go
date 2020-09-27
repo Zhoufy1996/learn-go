@@ -12,11 +12,14 @@ import (
 // GetArticle is
 func GetArticle(c *gin.Context) {
 	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
-
-	article, err := services.GetArticle(uint(id))
 	if err != nil {
-		response.FailWithMsg(e.SEARCHERROR, c)
+		response.FailureResult(c, e.ParamError)
 		return
 	}
-	response.OkWithData(article, c)
+	article, err := services.GetArticle(uint(id))
+	if err != nil {
+		response.FailureResult(c, e.SearchError)
+		return
+	}
+	response.SuccessResult(c, article)
 }

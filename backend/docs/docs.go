@@ -41,9 +41,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "GetAllTags"
+                    "Tags"
                 ],
-                "summary": "获取所有的Tag",
+                "summary": "获取所有的标签",
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
@@ -51,8 +51,73 @@ var doc = `{
                             "type": "string"
                         }
                     },
-                    "400": {
-                        "description": "{\"error\"}",
+                    "500": {
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/tag/count": {
+            "get": {
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "获取标签总数",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/tag/id/{id}": {
+            "get": {
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "根据id获取标签",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "TAG ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":0,\"msg\":\"操作成功\", \"data\":{}}",
+                        "schema": {
+                            "$ref": "#/definitions/models.Tag"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null\"}",
                         "schema": {
                             "type": "string"
                         }
@@ -61,16 +126,78 @@ var doc = `{
             }
         }
     },
-    "tags": [
-        {
-            "description": "tag description",
-            "name": "tag",
-            "externalDocs": {
-                "description": "doc description",
-                "url": "doc url"
+    "definitions": {
+        "models.Article": {
+            "type": "object",
+            "properties": {
+                "body": {
+                    "type": "string"
+                },
+                "categoryId": {
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "subTitle": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Tag"
+                    }
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updateAt": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.Tag": {
+            "type": "object",
+            "properties": {
+                "articles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Article"
+                    }
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "updateAt": {
+                    "type": "string"
+                }
             }
         }
-    ]
+    }
 }`
 
 type swaggerInfo struct {
@@ -89,7 +216,7 @@ var SwaggerInfo = swaggerInfo{
 	BasePath:    "/v1",
 	Schemes:     []string{"http"},
 	Title:       "title",
-	Description: "个description",
+	Description: "description",
 }
 
 type s struct{}

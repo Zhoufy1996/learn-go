@@ -1,11 +1,58 @@
 basePath: /v1
+definitions:
+  models.Article:
+    properties:
+      body:
+        type: string
+      categoryId:
+        type: integer
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      subTitle:
+        type: string
+      tags:
+        items:
+          $ref: '#/definitions/models.Tag'
+        type: array
+      title:
+        type: string
+      updateAt:
+        type: string
+      userId:
+        type: integer
+    type: object
+  models.Tag:
+    properties:
+      articles:
+        items:
+          $ref: '#/definitions/models.Article'
+        type: array
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updateAt:
+        type: string
+    type: object
 host: 127.0.0.1:8050
 info:
   contact:
     email: contact email
     name: contact name
     url: contact url
-  description: 个description
+  description: description
   license:
     name: license name
     url: liscense url
@@ -23,19 +70,55 @@ paths:
           description: '{"success":true,"data":{},"msg":"上传成功"}'
           schema:
             type: string
-        "400":
-          description: '{"error"}'
+        "500":
+          description: '{"code":1001,"msg":"查询出错", "data":null"}'
           schema:
             type: string
-      summary: 获取所有的Tag
+      summary: 获取所有的标签
       tags:
-      - GetAllTags
+      - Tags
+  /tag/count:
+    get:
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"上传成功"}'
+          schema:
+            type: string
+        "500":
+          description: '{"code":1001,"msg":"查询出错", "data":null"}'
+          schema:
+            type: string
+      summary: 获取标签总数
+      tags:
+      - Tags
+  /tag/id/{id}:
+    get:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: TAG ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":0,"msg":"操作成功", "data":{}}'
+          schema:
+            $ref: '#/definitions/models.Tag'
+        "500":
+          description: '{"code":1001,"msg":"查询出错", "data":null"}'
+          schema:
+            type: string
+      summary: 根据id获取标签
+      tags:
+      - Tags
 schemes:
 - http
 swagger: "2.0"
-tags:
-- description: tag description
-  externalDocs:
-    description: doc description
-    url: doc url
-  name: tag

@@ -2,6 +2,7 @@ package services
 
 import (
 	"backend/models"
+	"fmt"
 )
 
 // GetTag uint
@@ -20,4 +21,39 @@ func GetAllTags() (*[]models.Tag, error) {
 func GetTagsCount() (int64, error) {
 	count, err := models.GetTagsCount()
 	return count, err
+}
+
+// TagModel is
+type TagModel struct {
+	Title       string `binding:"required" json:"title"`
+	Description string `json:"description"`
+}
+
+// CreateTag is
+func CreateTag(newTag *TagModel) error {
+	var tag *models.Tag
+	tag.Title = newTag.Title
+	tag.Description = newTag.Description
+	err := models.CreateTag(tag)
+	return err
+}
+
+// UpdateTagModel is
+type UpdateTagModel struct {
+	ID          uint   `binding:"required" json:"id"`
+	Description string `json:"description"`
+	Title       string `json:"title"`
+}
+
+// UpdateTag is
+func UpdateTag(updateTag *UpdateTagModel) error {
+	var (
+		tag *models.Tag = &models.Tag{}
+		id  uint        = updateTag.ID
+	)
+	fmt.Println("service")
+	tag.Title = updateTag.Title
+	tag.Description = updateTag.Description
+	err := models.UpdateTag(id, tag)
+	return err
 }

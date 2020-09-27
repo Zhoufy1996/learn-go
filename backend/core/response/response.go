@@ -1,6 +1,7 @@
 package response
 
 import (
+	"backend/core/e"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,7 +10,6 @@ import (
 // SUCCESS FAILURE
 const (
 	SUCCESS = 0
-	FAILURE = 1
 )
 
 // Response is
@@ -20,20 +20,29 @@ type Response struct {
 }
 
 // Result is
-func Result(code int, msg string, data interface{}, c *gin.Context) {
-	c.JSON(http.StatusOK, Response{
-		code,
-		msg,
-		data,
-	})
+func Result(httpCode int, response *Response, c *gin.Context) {
+	c.JSON(httpCode, response)
 }
 
-// OkWithData is
-func OkWithData(data interface{}, c *gin.Context) {
-	Result(SUCCESS, "操作成功", data, c)
+// SuccessResult is
+func SuccessResult(c *gin.Context, data interface{}) {
+	Result(http.StatusOK, &Response{
+		Code: SUCCESS,
+		Msg:  "操作成功",
+		Data: data,
+	}, c)
 }
 
-// FailWithMsg is
-func FailWithMsg(msg string, c *gin.Context) {
-	Result(FAILURE, msg, nil, c)
+// FailureResult is
+func FailureResult(c *gin.Context, customError *e.CustomError) {
+	var (
+		code     int    = customError.Code
+		msg      string = customError.Msg
+		httpCode int    = customError.HttpCode
+	)
+	Result(httpCode, &Response{
+		Code: code,
+		Msg:  msg,
+		Data: nil,
+	}, c)
 }

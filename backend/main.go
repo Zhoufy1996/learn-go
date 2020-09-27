@@ -42,11 +42,7 @@ func init() {
 
 // @title title
 // @version 0.0.1
-// @description 个description
-// @tag.name tag
-// @tag.description tag description
-// @tag.docs.url doc url
-// @tag.docs.description doc description
+// @description description
 // @contact.name contact name
 // @contact.url contact url
 // @contact.email contact email
