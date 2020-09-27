@@ -2,10 +2,14 @@ basePath: /v1
 host: 127.0.0.1:8050
 info:
   contact:
-    email: hellozfy1996@gmail.com
-  description: 个人博客 go学习
-  license: {}
-  title: 个人博客 API
+    email: contact email
+    name: contact name
+    url: contact url
+  description: 个description
+  license:
+    name: license name
+    url: liscense url
+  title: title
   version: 0.0.1
 paths:
   /tag/all:
@@ -26,4 +30,12 @@ paths:
       summary: 获取所有的Tag
       tags:
       - GetAllTags
+schemes:
+- http
 swagger: "2.0"
+tags:
+- description: tag description
+  externalDocs:
+    description: doc description
+    url: doc url
+  name: tag

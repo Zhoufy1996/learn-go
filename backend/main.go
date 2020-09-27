@@ -40,16 +40,22 @@ func init() {
 
 }
 
-// @title 个人博客 API
+// @title title
 // @version 0.0.1
-// @description 个人博客 go学习
+// @description 个description
 // @tag.name tag
 // @tag.description tag description
 // @tag.docs.url doc url
 // @tag.docs.description doc description
-// @contact.email hellozfy1996@gmail.com
+// @contact.name contact name
+// @contact.url contact url
+// @contact.email contact email
+// @license.name license name
+// @license.url liscense url
 // @host 127.0.0.1:8050
 // @BasePath /v1
+// @query.collection.format.csv
+// @schemes http
 func main() {
 
 	r.Run(fmt.Sprintf(":%s", config.AppSetting.Port))

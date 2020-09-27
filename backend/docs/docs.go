@@ -19,9 +19,14 @@ var doc = `{
         "description": "{{.Description}}",
         "title": "{{.Title}}",
         "contact": {
-            "email": "hellozfy1996@gmail.com"
+            "name": "contact name",
+            "url": "contact url",
+            "email": "contact email"
         },
-        "license": {},
+        "license": {
+            "name": "license name",
+            "url": "liscense url"
+        },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -55,7 +60,17 @@ var doc = `{
                 }
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "description": "tag description",
+            "name": "tag",
+            "externalDocs": {
+                "description": "doc description",
+                "url": "doc url"
+            }
+        }
+    ]
 }`
 
 type swaggerInfo struct {
@@ -72,9 +87,9 @@ var SwaggerInfo = swaggerInfo{
 	Version:     "0.0.1",
 	Host:        "127.0.0.1:8050",
 	BasePath:    "/v1",
-	Schemes:     []string{},
-	Title:       "个人博客 API",
-	Description: "个人博客 go学习",
+	Schemes:     []string{"http"},
+	Title:       "title",
+	Description: "个description",
 }
 
 type s struct{}

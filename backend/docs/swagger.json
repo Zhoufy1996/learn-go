@@ -1,12 +1,20 @@
 {
+    "schemes": [
+        "http"
+    ],
     "swagger": "2.0",
     "info": {
-        "description": "个人博客 go学习",
-        "title": "个人博客 API",
+        "description": "个description",
+        "title": "title",
         "contact": {
-            "email": "hellozfy1996@gmail.com"
+            "name": "contact name",
+            "url": "contact url",
+            "email": "contact email"
         },
-        "license": {},
+        "license": {
+            "name": "license name",
+            "url": "liscense url"
+        },
         "version": "0.0.1"
     },
     "host": "127.0.0.1:8050",
@@ -40,5 +48,15 @@
                 }
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "description": "tag description",
+            "name": "tag",
+            "externalDocs": {
+                "description": "doc description",
+                "url": "doc url"
+            }
+        }
+    ]
 }
