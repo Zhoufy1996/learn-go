@@ -45,3 +45,6 @@ https://github.com/swaggo/swag/blob/master/README_zh-CN.md
 
 
 https://blog.csdn.net/qq_36431213/article/details/82967982
+
+### 12. 零值不会更新
+0, nil, "", false

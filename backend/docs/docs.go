@@ -32,6 +32,215 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/category/add": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "创建类型",
+                "parameters": [
+                    {
+                        "description": "row",
+                        "name": "row",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/dto.CreateCategoryDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/category/all": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "获取所有的类型",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Category"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/category/count": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "获取类型总数",
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/category/delete/{id}": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "根据id删除类型",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":0,\"msg\":\"操作成功\", \"data\":{}}",
+                        "schema": {
+                            "$ref": "#/definitions/models.Category"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/category/id/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "根据id获取类型",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":0,\"msg\":\"操作成功\", \"data\":{}}",
+                        "schema": {
+                            "$ref": "#/definitions/models.Category"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/category/update": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "category"
+                ],
+                "summary": "编辑类型",
+                "parameters": [
+                    {
+                        "description": "row",
+                        "name": "row",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/dto.UpdateCategoryDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/tag/add": {
             "post": {
                 "consumes": [
@@ -41,7 +250,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Tags"
+                    "tag"
                 ],
                 "summary": "创建标签",
                 "parameters": [
@@ -50,7 +259,7 @@ var doc = `{
                         "name": "row",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/services.TagModel"
+                            "$ref": "#/definitions/dto.CreateTagDTO"
                         }
                     }
                 ],
@@ -79,14 +288,17 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Tags"
+                    "tag"
                 ],
                 "summary": "获取所有的标签",
                 "responses": {
                     "200": {
                         "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
                         "schema": {
-                            "type": "string"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Category"
+                            }
                         }
                     },
                     "500": {
@@ -107,7 +319,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Tags"
+                    "tag"
                 ],
                 "summary": "获取标签总数",
                 "responses": {
@@ -135,13 +347,13 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Tags"
+                    "tag"
                 ],
-                "summary": "根据id删除",
+                "summary": "根据id删除标签",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "ID",
+                        "description": "id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -172,13 +384,13 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Tags"
+                    "tag"
                 ],
                 "summary": "根据id获取标签",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "ID",
+                        "description": "id",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -209,7 +421,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Tags"
+                    "tag"
                 ],
                 "summary": "编辑标签",
                 "parameters": [
@@ -218,7 +430,7 @@ var doc = `{
                         "name": "row",
                         "in": "body",
                         "schema": {
-                            "$ref": "#/definitions/services.UpdateTagModel"
+                            "$ref": "#/definitions/dto.UpdateTagDTO"
                         }
                     }
                 ],
@@ -240,6 +452,68 @@ var doc = `{
         }
     },
     "definitions": {
+        "dto.CreateCategoryDTO": {
+            "type": "object",
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.CreateTagDTO": {
+            "type": "object",
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.UpdateCategoryDTO": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "dto.UpdateTagDTO": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
         "models.Article": {
             "type": "object",
             "properties": {
@@ -281,7 +555,7 @@ var doc = `{
                 }
             }
         },
-        "models.Tag": {
+        "models.Category": {
             "type": "object",
             "properties": {
                 "articles": {
@@ -310,26 +584,21 @@ var doc = `{
                 }
             }
         },
-        "services.TagModel": {
+        "models.Tag": {
             "type": "object",
-            "required": [
-                "title"
-            ],
             "properties": {
-                "description": {
+                "articles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Article"
+                    }
+                },
+                "createdAt": {
                     "type": "string"
                 },
-                "title": {
+                "deletedAt": {
                     "type": "string"
-                }
-            }
-        },
-        "services.UpdateTagModel": {
-            "type": "object",
-            "required": [
-                "id"
-            ],
-            "properties": {
+                },
                 "description": {
                     "type": "string"
                 },
@@ -337,6 +606,9 @@ var doc = `{
                     "type": "integer"
                 },
                 "title": {
+                    "type": "string"
+                },
+                "updateAt": {
                     "type": "string"
                 }
             }

@@ -8,21 +8,21 @@ type Category struct {
 	Articles    []Article `gorm:"foreignKey:CategoryID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"articles"`
 }
 
-// GetCategory is
+// GetCategory 根据id获取类型
 func GetCategory(id uint) (*Category, error) {
 	var category Category
 	err := db.Where("ID = ?", id).First(&category).Error
 	return &category, err
 }
 
-// GetAllCategorys is
+// GetAllCategorys 获取所有类型
 func GetAllCategorys() (*[]Category, error) {
 	var categories []Category
 	err := db.Find(&categories).Error
 	return &categories, err
 }
 
-// GetCategoriesCount is
+// GetCategoriesCount 获取类型数
 func GetCategoriesCount() (int64, error) {
 	var count int64
 	err := db.Model(&Category{}).Count(&count).Error
@@ -32,19 +32,19 @@ func GetCategoriesCount() (int64, error) {
 	return count, err
 }
 
-// CreateCategory is
+// CreateCategory 创建类型
 func CreateCategory(category *Category) error {
 	err := db.Model(&Category{}).Create(category).Error
 	return err
 }
 
-// UpdateCategory is
+// UpdateCategory 更新类型，需要有id
 func UpdateCategory(id uint, category *Category) error {
 	err := db.Model(&Category{}).Where("ID = ?", id).Updates(category).Error
 	return err
 }
 
-// DeleteCategory is
+// DeleteCategory 根据id删除类型
 func DeleteCategory(id uint) error {
 	err := db.Where("ID = ?", id).Delete(&Category{}).Error
 	return err

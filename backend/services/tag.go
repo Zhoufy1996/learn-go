@@ -1,36 +1,30 @@
 package services
 
 import (
+	"backend/dto"
 	"backend/models"
-	"fmt"
 )
 
-// GetTag uint
+// GetTag 根据id获取标签
 func GetTag(id uint) (*models.Tag, error) {
 	tag, err := models.GetTag(id)
 	return tag, err
 }
 
-// GetAllTags is
+// GetAllTags 获取所有标签
 func GetAllTags() (*[]models.Tag, error) {
 	tags, err := models.GetAllTags()
 	return tags, err
 }
 
-// GetTagsCount is
+// GetTagsCount 获取标签数
 func GetTagsCount() (int64, error) {
 	count, err := models.GetTagsCount()
 	return count, err
 }
 
-// TagModel is
-type TagModel struct {
-	Title       string `binding:"required" json:"title"`
-	Description string `json:"description"`
-}
-
-// CreateTag is
-func CreateTag(newTag *TagModel) error {
+// CreateTag 创建标签
+func CreateTag(newTag *dto.CreateTagDTO) error {
 	var tag *models.Tag = &models.Tag{}
 	tag.Title = newTag.Title
 	tag.Description = newTag.Description
@@ -38,27 +32,19 @@ func CreateTag(newTag *TagModel) error {
 	return err
 }
 
-// UpdateTagModel is
-type UpdateTagModel struct {
-	ID          uint   `binding:"required" json:"id"`
-	Description string `json:"description"`
-	Title       string `json:"title"`
-}
-
-// UpdateTag is
-func UpdateTag(updateTag *UpdateTagModel) error {
+// UpdateTag 更新标签，需要有id
+func UpdateTag(updateTag *dto.UpdateTagDTO) error {
 	var (
 		tag *models.Tag = &models.Tag{}
 		id  uint        = updateTag.ID
 	)
-	fmt.Println("service")
 	tag.Title = updateTag.Title
 	tag.Description = updateTag.Description
 	err := models.UpdateTag(id, tag)
 	return err
 }
 
-// DeleteTag is
+// DeleteTag 根据id删除标签
 func DeleteTag(id uint) error {
 	err := models.DeleteTag(id)
 	return err

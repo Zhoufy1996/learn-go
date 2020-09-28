@@ -1,5 +1,45 @@
 basePath: /v1
 definitions:
+  dto.CreateCategoryDTO:
+    properties:
+      description:
+        type: string
+      title:
+        type: string
+    required:
+    - title
+    type: object
+  dto.CreateTagDTO:
+    properties:
+      description:
+        type: string
+      title:
+        type: string
+    required:
+    - title
+    type: object
+  dto.UpdateCategoryDTO:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    required:
+    - id
+    type: object
+  dto.UpdateTagDTO:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    required:
+    - id
+    type: object
   models.Article:
     properties:
       body:
@@ -27,6 +67,25 @@ definitions:
       userId:
         type: integer
     type: object
+  models.Category:
+    properties:
+      articles:
+        items:
+          $ref: '#/definitions/models.Article'
+        type: array
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updateAt:
+        type: string
+    type: object
   models.Tag:
     properties:
       articles:
@@ -46,26 +105,6 @@ definitions:
       updateAt:
         type: string
     type: object
-  services.TagModel:
-    properties:
-      description:
-        type: string
-      title:
-        type: string
-    required:
-    - title
-    type: object
-  services.UpdateTagModel:
-    properties:
-      description:
-        type: string
-      id:
-        type: integer
-      title:
-        type: string
-    required:
-    - id
-    type: object
 host: 127.0.0.1:8050
 info:
   contact:
@@ -79,7 +118,7 @@ info:
   title: title
   version: 0.0.1
 paths:
-  /tag/add:
+  /category/add:
     post:
       consumes:
       - application/json
@@ -88,7 +127,7 @@ paths:
         in: body
         name: row
         schema:
-          $ref: '#/definitions/services.TagModel'
+          $ref: '#/definitions/dto.CreateCategoryDTO'
       produces:
       - application/json
       responses:
@@ -100,10 +139,30 @@ paths:
           description: '{"code":1001,"msg":"查询出错", "data":null}'
           schema:
             type: string
-      summary: 创建标签
+      summary: 创建类型
       tags:
-      - Tags
-  /tag/all:
+      - category
+  /category/all:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"上传成功"}'
+          schema:
+            items:
+              $ref: '#/definitions/models.Category'
+            type: array
+        "500":
+          description: '{"code":1001,"msg":"查询出错", "data":null}'
+          schema:
+            type: string
+      summary: 获取所有的类型
+      tags:
+      - category
+  /category/count:
     get:
       consumes:
       - application/json
@@ -118,9 +177,125 @@ paths:
           description: '{"code":1001,"msg":"查询出错", "data":null}'
           schema:
             type: string
+      summary: 获取类型总数
+      tags:
+      - category
+  /category/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":0,"msg":"操作成功", "data":{}}'
+          schema:
+            $ref: '#/definitions/models.Category'
+        "500":
+          description: '{"code":1001,"msg":"查询出错", "data":null}'
+          schema:
+            type: string
+      summary: 根据id删除类型
+      tags:
+      - category
+  /category/id/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":0,"msg":"操作成功", "data":{}}'
+          schema:
+            $ref: '#/definitions/models.Category'
+        "500":
+          description: '{"code":1001,"msg":"查询出错", "data":null}'
+          schema:
+            type: string
+      summary: 根据id获取类型
+      tags:
+      - category
+  /category/update:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: row
+        in: body
+        name: row
+        schema:
+          $ref: '#/definitions/dto.UpdateCategoryDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"上传成功"}'
+          schema:
+            type: string
+        "500":
+          description: '{"code":1001,"msg":"查询出错", "data":null}'
+          schema:
+            type: string
+      summary: 编辑类型
+      tags:
+      - category
+  /tag/add:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: row
+        in: body
+        name: row
+        schema:
+          $ref: '#/definitions/dto.CreateTagDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"上传成功"}'
+          schema:
+            type: string
+        "500":
+          description: '{"code":1001,"msg":"查询出错", "data":null}'
+          schema:
+            type: string
+      summary: 创建标签
+      tags:
+      - tag
+  /tag/all:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"上传成功"}'
+          schema:
+            items:
+              $ref: '#/definitions/models.Category'
+            type: array
+        "500":
+          description: '{"code":1001,"msg":"查询出错", "data":null}'
+          schema:
+            type: string
       summary: 获取所有的标签
       tags:
-      - Tags
+      - tag
   /tag/count:
     get:
       consumes:
@@ -138,13 +313,13 @@ paths:
             type: string
       summary: 获取标签总数
       tags:
-      - Tags
+      - tag
   /tag/delete/{id}:
     delete:
       consumes:
       - application/json
       parameters:
-      - description: ID
+      - description: id
         in: path
         name: id
         required: true
@@ -160,15 +335,15 @@ paths:
           description: '{"code":1001,"msg":"查询出错", "data":null}'
           schema:
             type: string
-      summary: 根据id删除
+      summary: 根据id删除标签
       tags:
-      - Tags
+      - tag
   /tag/id/{id}:
     get:
       consumes:
       - application/json
       parameters:
-      - description: ID
+      - description: id
         in: path
         name: id
         required: true
@@ -186,7 +361,7 @@ paths:
             type: string
       summary: 根据id获取标签
       tags:
-      - Tags
+      - tag
   /tag/update:
     put:
       consumes:
@@ -196,7 +371,7 @@ paths:
         in: body
         name: row
         schema:
-          $ref: '#/definitions/services.UpdateTagModel'
+          $ref: '#/definitions/dto.UpdateTagDTO'
       produces:
       - application/json
       responses:
@@ -210,7 +385,7 @@ paths:
             type: string
       summary: 编辑标签
       tags:
-      - Tags
+      - tag
 schemes:
 - http
 swagger: "2.0"
