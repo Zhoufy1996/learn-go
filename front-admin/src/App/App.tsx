@@ -7,12 +7,11 @@ import { CssBaseline } from '@material-ui/core';
 
 import './style.css';
 import '../shared/assets/styles/index.scss';
-
-import ResponsiveDrawer from '../core/components/Drawer';
-import Sidebar from '../core/components/Sidebar';
-import Router from '../core/components/Router';
+import { router } from '../core';
 
 const theme = createMuiTheme();
+
+const routerComponent = router.getRouterComponent();
 
 const App = () => {
     return (
@@ -20,11 +19,6 @@ const App = () => {
             <ThemeProvider theme={theme}>
                 <HashRouter>
                     <CssBaseline />
-                    <ResponsiveDrawer
-                        ToolbarChildren={() => null}
-                        DrawerChildren={Sidebar}
-                        MainChildren={Router}
-                    />
                 </HashRouter>
             </ThemeProvider>
         </RecoilRoot>

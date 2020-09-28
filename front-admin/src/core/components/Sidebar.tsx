@@ -1,8 +1,8 @@
 /** @format */
 import React from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
-import router from '../router';
-import { routerModel } from '../../model/router.model';
+import { router } from '../index';
+import { routerModel } from '../../shared/router/router.model';
 import NestedList, { ListData } from './List';
 
 const Sidebar = () => {
@@ -41,7 +41,7 @@ const Sidebar = () => {
             },
         };
     };
-    const data = router.map((item) => {
+    const data = router.getRouterData().map((item) => {
         return TransSingle(item, '');
     });
     return <NestedList data={data} listTag="nav" depth={0} />;

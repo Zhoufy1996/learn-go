@@ -1,8 +1,7 @@
 /** @format */
 import React, { ReactNode, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { routerModel } from '../../model/router.model';
-import router from '../router';
+import { routerModel } from './router.model';
 
 const transformRouter = (_router: routerModel[]): ReactNode[] => {
     const transSingle = (_route: routerModel, _baseUrl: string): any => {
@@ -24,12 +23,24 @@ const transformRouter = (_router: routerModel[]): ReactNode[] => {
     return result;
 };
 
-const Router = () => {
-    return (
-        <Suspense fallback={<div>loading</div>}>
-            <Switch>{transformRouter(router)}</Switch>
-        </Suspense>
-    );
-};
+class Router {
+    private data: routerModel[] = [];
+
+    getRouterData() {
+        return this.data;
+    }
+
+    addRouter(routes: routerModel[]) {
+        this.data.push(...routes);
+    }
+
+    getRouterComponent() {
+        return (
+            <Suspense fallback={<div>loading</div>}>
+                <Switch>{transformRouter(this.data)}</Switch>
+            </Suspense>
+        );
+    }
+}
 
 export default Router;
