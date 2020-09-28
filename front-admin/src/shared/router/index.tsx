@@ -24,7 +24,11 @@ const transformRouter = (_router: routerModel[]): ReactNode[] => {
 };
 
 class Router {
-    private data: routerModel[] = [];
+    private data: routerModel[];
+
+    constructor() {
+        this.data = [];
+    }
 
     getRouterData() {
         return this.data;
