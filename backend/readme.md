@@ -46,7 +46,7 @@ format
 
 #### 4. routers
 
-### 热重载 fresh
+#### 5. 热重载 fresh
 https://github.com/gravityblast/fresh/issues/74
 
 
@@ -54,3 +54,5 @@ https://github.com/gravityblast/fresh/issues/74
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 ```
+
+#### 6. 文档 swag
