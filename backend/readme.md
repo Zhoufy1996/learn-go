@@ -48,3 +48,9 @@ format
 
 ### 热重载 fresh
 https://github.com/gravityblast/fresh/issues/74
+
+
+```
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+```

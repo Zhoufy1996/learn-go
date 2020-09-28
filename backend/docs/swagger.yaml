@@ -46,6 +46,26 @@ definitions:
       updateAt:
         type: string
     type: object
+  services.TagModel:
+    properties:
+      description:
+        type: string
+      title:
+        type: string
+    required:
+    - title
+    type: object
+  services.UpdateTagModel:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    required:
+    - id
+    type: object
 host: 127.0.0.1:8050
 info:
   contact:
@@ -59,10 +79,16 @@ info:
   title: title
   version: 0.0.1
 paths:
-  /tag/all:
-    get:
+  /tag/add:
+    post:
       consumes:
-      - multipart/form-data
+      - application/json
+      parameters:
+      - description: row
+        in: body
+        name: row
+        schema:
+          $ref: '#/definitions/services.TagModel'
       produces:
       - application/json
       responses:
@@ -71,7 +97,25 @@ paths:
           schema:
             type: string
         "500":
-          description: '{"code":1001,"msg":"查询出错", "data":null"}'
+          description: '{"code":1001,"msg":"查询出错", "data":null}'
+          schema:
+            type: string
+      summary: 创建标签
+      tags:
+      - Tags
+  /tag/all:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"上传成功"}'
+          schema:
+            type: string
+        "500":
+          description: '{"code":1001,"msg":"查询出错", "data":null}'
           schema:
             type: string
       summary: 获取所有的标签
@@ -80,7 +124,7 @@ paths:
   /tag/count:
     get:
       consumes:
-      - multipart/form-data
+      - application/json
       produces:
       - application/json
       responses:
@@ -89,18 +133,18 @@ paths:
           schema:
             type: string
         "500":
-          description: '{"code":1001,"msg":"查询出错", "data":null"}'
+          description: '{"code":1001,"msg":"查询出错", "data":null}'
           schema:
             type: string
       summary: 获取标签总数
       tags:
       - Tags
-  /tag/id/{id}:
-    get:
+  /tag/delete/{id}:
+    delete:
       consumes:
-      - multipart/form-data
+      - application/json
       parameters:
-      - description: TAG ID
+      - description: ID
         in: path
         name: id
         required: true
@@ -113,10 +157,58 @@ paths:
           schema:
             $ref: '#/definitions/models.Tag'
         "500":
-          description: '{"code":1001,"msg":"查询出错", "data":null"}'
+          description: '{"code":1001,"msg":"查询出错", "data":null}'
+          schema:
+            type: string
+      summary: 根据id删除
+      tags:
+      - Tags
+  /tag/id/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"code":0,"msg":"操作成功", "data":{}}'
+          schema:
+            $ref: '#/definitions/models.Tag'
+        "500":
+          description: '{"code":1001,"msg":"查询出错", "data":null}'
           schema:
             type: string
       summary: 根据id获取标签
+      tags:
+      - Tags
+  /tag/update:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: row
+        in: body
+        name: row
+        schema:
+          $ref: '#/definitions/services.UpdateTagModel'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"success":true,"data":{},"msg":"上传成功"}'
+          schema:
+            type: string
+        "500":
+          description: '{"code":1001,"msg":"查询出错", "data":null}'
+          schema:
+            type: string
+      summary: 编辑标签
       tags:
       - Tags
 schemes:

@@ -32,10 +32,48 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/tag/add": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "创建标签",
+                "parameters": [
+                    {
+                        "description": "row",
+                        "name": "row",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/services.TagModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/tag/all": {
             "get": {
                 "consumes": [
-                    "multipart/form-data"
+                    "application/json"
                 ],
                 "produces": [
                     "application/json"
@@ -52,7 +90,7 @@ var doc = `{
                         }
                     },
                     "500": {
-                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null\"}",
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null}",
                         "schema": {
                             "type": "string"
                         }
@@ -63,7 +101,7 @@ var doc = `{
         "/tag/count": {
             "get": {
                 "consumes": [
-                    "multipart/form-data"
+                    "application/json"
                 ],
                 "produces": [
                     "application/json"
@@ -80,7 +118,7 @@ var doc = `{
                         }
                     },
                     "500": {
-                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null\"}",
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null}",
                         "schema": {
                             "type": "string"
                         }
@@ -88,10 +126,10 @@ var doc = `{
                 }
             }
         },
-        "/tag/id/{id}": {
-            "get": {
+        "/tag/delete/{id}": {
+            "delete": {
                 "consumes": [
-                    "multipart/form-data"
+                    "application/json"
                 ],
                 "produces": [
                     "application/json"
@@ -99,11 +137,11 @@ var doc = `{
                 "tags": [
                     "Tags"
                 ],
-                "summary": "根据id获取标签",
+                "summary": "根据id删除",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "TAG ID",
+                        "description": "ID",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -117,7 +155,82 @@ var doc = `{
                         }
                     },
                     "500": {
-                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null\"}",
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/tag/id/{id}": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "根据id获取标签",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\":0,\"msg\":\"操作成功\", \"data\":{}}",
+                        "schema": {
+                            "$ref": "#/definitions/models.Tag"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/tag/update": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "编辑标签",
+                "parameters": [
+                    {
+                        "description": "row",
+                        "name": "row",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/services.UpdateTagModel"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"success\":true,\"data\":{},\"msg\":\"上传成功\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "{\"code\":1001,\"msg\":\"查询出错\", \"data\":null}",
                         "schema": {
                             "type": "string"
                         }
@@ -193,6 +306,37 @@ var doc = `{
                     "type": "string"
                 },
                 "updateAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "services.TagModel": {
+            "type": "object",
+            "required": [
+                "title"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "services.UpdateTagModel": {
+            "type": "object",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
                     "type": "string"
                 }
             }

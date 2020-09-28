@@ -31,7 +31,7 @@ type TagModel struct {
 
 // CreateTag is
 func CreateTag(newTag *TagModel) error {
-	var tag *models.Tag
+	var tag *models.Tag = &models.Tag{}
 	tag.Title = newTag.Title
 	tag.Description = newTag.Description
 	err := models.CreateTag(tag)
@@ -55,5 +55,11 @@ func UpdateTag(updateTag *UpdateTagModel) error {
 	tag.Title = updateTag.Title
 	tag.Description = updateTag.Description
 	err := models.UpdateTag(id, tag)
+	return err
+}
+
+// DeleteTag is
+func DeleteTag(id uint) error {
+	err := models.DeleteTag(id)
 	return err
 }
