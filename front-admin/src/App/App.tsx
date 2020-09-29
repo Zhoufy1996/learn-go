@@ -22,7 +22,8 @@ const AppComponent = () => {
             }
         };
         init();
-    }, [verifyToken]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const RouterComponent = useMemo(() => {
         return router.getRouterComponent();

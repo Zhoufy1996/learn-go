@@ -10,6 +10,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type loginRes struct {
+	Token string `json:"token"`
+}
+
 // Login is
 func Login(c *gin.Context) {
 	var user *dto.LoginDto = &dto.LoginDto{}
@@ -26,11 +30,14 @@ func Login(c *gin.Context) {
 		response.FailureResult(c, e.SearchError)
 		return
 	}
-	middleware.SetCookie(int(u.ID), c)
-	response.SuccessResult(c, nil)
+	token := middleware.SetToken(int(u.ID))
+	data := &loginRes{
+		Token: token,
+	}
+	response.SuccessResult(c, data)
 }
 
-// GetAllCookies is
-func GetAllCookies(c *gin.Context) {
-	response.SuccessResult(c, middleware.GetAllCookies())
+// GetAllToken is
+func GetAllToken(c *gin.Context) {
+	response.SuccessResult(c, middleware.GetAllToken())
 }

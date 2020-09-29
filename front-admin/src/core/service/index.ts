@@ -18,14 +18,15 @@ service.interceptors.request.use(
 );
 
 interface Res {
-    code: number;
+    data: any;
     msg: string;
-    data: object;
+    code: number;
 }
 
 service.interceptors.response.use(
     (config) => {
-        return config.data;
+        const { data, msg, code }: Res = config.data;
+        return data;
     },
     (error) => {
         return Promise.reject(error);

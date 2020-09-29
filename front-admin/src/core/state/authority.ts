@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import authorityService from '../service/authority';
 import TokenContainer from './token';
+import console from '../../shared/utils/console';
 
 const useAuthority = () => {
     const [isLogin, setisLogin] = useState<boolean>(false);
@@ -12,17 +13,9 @@ const useAuthority = () => {
 
     const { update } = TokenContainer.useContainer();
 
-    const verifyToken = async () => {
-        try {
-            await authorityService.verifyToken();
-            setisLogin(true);
-        } catch (e) {
-            setisLogin(false);
-        }
-    };
-
     const login = async (values: LoginModel) => {
         const res = await authorityService.login(values);
+        console(res);
         update(res.token);
         setisLogin(true);
     };
@@ -30,6 +23,15 @@ const useAuthority = () => {
     const logout = () => {
         setisLogin(false);
         history.push('/login');
+    };
+
+    const verifyToken = async () => {
+        try {
+            await authorityService.verifyToken();
+            setisLogin(true);
+        } catch (e) {
+            logout();
+        }
     };
 
     return {

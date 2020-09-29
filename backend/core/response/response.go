@@ -26,11 +26,12 @@ func Result(httpCode int, response *Response, c *gin.Context) {
 
 // SuccessResult is
 func SuccessResult(c *gin.Context, data interface{}) {
-	Result(http.StatusOK, &Response{
+	res := &Response{
 		Code: SUCCESS,
 		Msg:  "操作成功",
 		Data: data,
-	}, c)
+	}
+	Result(http.StatusOK, res, c)
 }
 
 // FailureResult is

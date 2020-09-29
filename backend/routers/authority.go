@@ -11,6 +11,6 @@ func initAuthorityRouter(router *gin.RouterGroup) {
 
 	{
 		apiRouter.POST("/login", v1.Login)
-		apiRouter.GET("/cookies", v1.GetAllCookies)
+		apiRouter.GET("/tokens", v1.GetAllToken)
 	}
 }
