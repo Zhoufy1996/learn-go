@@ -4,7 +4,11 @@ import service from '.';
 
 const baseUrl = 'authority';
 
-const login = (values: LoginModel) => {
+interface LoginRes {
+    token: string;
+}
+
+const login = (values: LoginModel): Promise<LoginRes> => {
     return service.post(`${baseUrl}/login`, values);
 };
 

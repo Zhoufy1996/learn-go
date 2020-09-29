@@ -3,11 +3,14 @@ import { createContainer } from 'unstated-next';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import authorityService from '../service/authority';
+import TokenContainer from './token';
 
 const useAuthority = () => {
     const [isLogin, setisLogin] = useState<boolean>(false);
 
     const history = useHistory();
+
+    const { update } = TokenContainer.useContainer();
 
     const verifyToken = async () => {
         try {
@@ -19,7 +22,8 @@ const useAuthority = () => {
     };
 
     const login = async (values: LoginModel) => {
-        await authorityService.login(values);
+        const res = await authorityService.login(values);
+        update(res.token);
         setisLogin(true);
     };
 

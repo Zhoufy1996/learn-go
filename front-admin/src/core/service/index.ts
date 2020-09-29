@@ -3,43 +3,9 @@
 import Axios from 'axios';
 import { BASE_URL, TIMEOUT } from './constant';
 
-/**
- *interface AxiosRequestConfig {
-  url?: string;
-  method?: Method;
-  baseURL?: string;
-  transformRequest?: AxiosTransformer | AxiosTransformer[];
-  transformResponse?: AxiosTransformer | AxiosTransformer[];
-  headers?: any;
-  params?: any;
-  paramsSerializer?: (params: any) => string;
-  data?: any;
-  timeout?: number;
-  timeoutErrorMessage?: string;
-  withCredentials?: boolean;
-  adapter?: AxiosAdapter;
-  auth?: AxiosBasicCredentials;
-  responseType?: ResponseType;
-  xsrfCookieName?: string;
-  xsrfHeaderName?: string;
-  onUploadProgress?: (progressEvent: any) => void;
-  onDownloadProgress?: (progressEvent: any) => void;
-  maxContentLength?: number;
-  validateStatus?: (status: number) => boolean;
-  maxRedirects?: number;
-  socketPath?: string | null;
-  httpAgent?: any;
-  httpsAgent?: any;
-  proxy?: AxiosProxyConfig | false;
-  cancelToken?: CancelToken;
- */
-
 const service = Axios.create({
     baseURL: BASE_URL || '',
     timeout: TIMEOUT || 1000,
-    headers: {
-        'Content-Type': 'application/json',
-    },
 });
 
 service.interceptors.request.use(
@@ -51,9 +17,15 @@ service.interceptors.request.use(
     }
 );
 
+interface Res {
+    code: number;
+    msg: string;
+    data: object;
+}
+
 service.interceptors.response.use(
     (config) => {
-        return config;
+        return config.data;
     },
     (error) => {
         return Promise.reject(error);
