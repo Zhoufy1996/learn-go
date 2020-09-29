@@ -2,8 +2,10 @@
 
 import service from '.';
 
-const login = () => {
-    return service.post('', {});
+const baseUrl = 'authority';
+
+const login = (values: LoginModel) => {
+    return service.post(`${baseUrl}/login`, values);
 };
 
 const logout = () => {

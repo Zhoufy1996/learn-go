@@ -34,13 +34,12 @@ import { BASE_URL, TIMEOUT } from './constant';
   cancelToken?: CancelToken;
  */
 
-interface InProcessReqUuids {
-    [key: number]: boolean;
-}
-
 const service = Axios.create({
     baseURL: BASE_URL || '',
     timeout: TIMEOUT || 1000,
+    headers: {
+        'Content-Type': 'application/json',
+    },
 });
 
 service.interceptors.request.use(

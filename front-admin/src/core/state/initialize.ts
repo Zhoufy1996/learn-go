@@ -2,9 +2,8 @@
 
 import { store } from '..';
 import AuthorityContainer from './authority';
-import TokenContainer from './useToken';
+import TokenContainer from './token';
 
-/** @format */
 const stateInit = () => {
     store.addState([AuthorityContainer, TokenContainer]);
 };

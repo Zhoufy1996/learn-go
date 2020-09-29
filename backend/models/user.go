@@ -14,3 +14,10 @@ func CreateUser(user *User) error {
 	err := db.Model(&User{}).Create(user).Error
 	return err
 }
+
+// UserIsExist is
+func UserIsExist(user *User) (*User, error) {
+	var u User
+	err := db.Where("Name = ? and Password = ?", user.Name, user.Password).First(&u).Error
+	return &u, err
+}

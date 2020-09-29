@@ -18,7 +18,8 @@ const useAuthority = () => {
         }
     };
 
-    const login = () => {
+    const login = async (values: LoginModel) => {
+        await authorityService.login(values);
         setisLogin(true);
     };
 
