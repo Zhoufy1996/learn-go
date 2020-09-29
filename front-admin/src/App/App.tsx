@@ -1,27 +1,53 @@
 /** @format */
-import React from 'react';
-import { RecoilRoot } from 'recoil';
+import React, { useMemo, useState, useEffect } from 'react';
 import { HashRouter } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { CssBaseline } from '@material-ui/core';
+import 'dayjs/locale/zh-cn';
 
 import './style.css';
 import '../shared/assets/styles/index.scss';
-import { router } from '../core';
+import { router, store } from '../core';
+import AuthorityContainer from '../core/state/authority';
 
-const theme = createMuiTheme();
+const AppComponent = () => {
+    const [hasInit, setHasInit] = useState<boolean>(false);
 
-const routerComponent = router.getRouterComponent();
+    const { verifyToken } = AuthorityContainer.useContainer();
+
+    useEffect(() => {
+        const init = async () => {
+            try {
+                await verifyToken();
+            } finally {
+                setHasInit(true);
+            }
+        };
+        init();
+    }, [verifyToken]);
+
+    const RouterComponent = useMemo(() => {
+        return router.getRouterComponent();
+    }, []);
+
+    const Component = useMemo(() => {
+        if (hasInit) {
+            return <RouterComponent />;
+        }
+        return null;
+    }, [hasInit]);
+    return Component;
+};
 
 const App = () => {
+    const Providers = useMemo(() => {
+        return store.getStoreComponent();
+    }, []);
+
     return (
-        <RecoilRoot>
-            <ThemeProvider theme={theme}>
-                <HashRouter>
-                    <CssBaseline />
-                </HashRouter>
-            </ThemeProvider>
-        </RecoilRoot>
+        <HashRouter>
+            <Providers>
+                <AppComponent />
+            </Providers>
+        </HashRouter>
     );
 };
 

@@ -2,6 +2,7 @@
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 
 const { resolve } = require('./utils');
 const { rules } = require('./rules/index');
@@ -30,6 +31,7 @@ const commonConfig = {
             filename: devMode ? 'css/[name].css' : 'css/[name].[hash:12].css',
             chunkFilename: devMode ? '[id].css' : 'css/[id].css',
         }),
+        new AntdDayjsWebpackPlugin(),
     ],
     resolve: {
         extensions: ['.tsx', '.ts', '.jsx', '.js'],

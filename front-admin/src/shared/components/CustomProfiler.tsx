@@ -22,7 +22,6 @@ export interface profilerData {
 /**
  * 如果使用context，callback导致value变化，又会触发新一轮的render，不断循环，导致卡死
  */
-
 const createContainer = () => {
     let profilerData: profilerData[] = [];
     const customConsole = customDebounce(() => {
@@ -78,18 +77,6 @@ const CustomProfiler = (props: {
         commitTime: number,
         interactions: Set<SchedulerInteraction>
     ) => {
-        // setProfilerData([
-        //     ...profilerData,
-        //     {
-        //         profilerName,
-        //         phase,
-        //         actualDuration,
-        //         baseDuration,
-        //         startTime,
-        //         commitTime,
-        //         interactions,
-        //     },
-        // ]);
         profilerContainer.push({
             profilerName,
             phase,

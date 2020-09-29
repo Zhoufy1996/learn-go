@@ -1,6 +1,7 @@
 /** @format */
 import React, { ReactNode, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
+
 import { routerModel } from './router.model';
 
 const transformRouter = (_router: routerModel[]): ReactNode[] => {
@@ -39,9 +40,10 @@ class Router {
     }
 
     getRouterComponent() {
-        return (
+        const { data } = this;
+        return () => (
             <Suspense fallback={<div>loading</div>}>
-                <Switch>{transformRouter(this.data)}</Switch>
+                <Switch>{transformRouter(data)}</Switch>
             </Suspense>
         );
     }

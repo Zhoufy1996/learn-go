@@ -11,7 +11,7 @@ const prodConfig = {
     entry: {
         app: resolve('src/main.prod.tsx'),
     },
-    devtool: 'hidden-source-map',
+    devtool: 'none',
     plugins: [
         new CleanWebpackPlugin(),
         new BundleAnalyzerPlugin({

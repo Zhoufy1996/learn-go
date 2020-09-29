@@ -1,10 +1,40 @@
 /** @format */
+import { createContainer } from 'unstated-next';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import authorityService from '../service/authority';
 
-import { atom } from 'recoil';
+const useAuthority = () => {
+    const [isLogin, setisLogin] = useState<boolean>(false);
 
-const authorityState = atom({
-    key: 'authority',
-    default: false,
-});
+    const history = useHistory();
 
-export default authorityState;
+    const verifyToken = async () => {
+        try {
+            await authorityService.verifyToken();
+            setisLogin(true);
+        } catch (e) {
+            setisLogin(false);
+        }
+    };
+
+    const login = () => {
+        setisLogin(true);
+    };
+
+    const logout = () => {
+        setisLogin(false);
+        history.push('/login');
+    };
+
+    return {
+        isLogin,
+        login,
+        logout,
+        verifyToken,
+    };
+};
+
+const AuthorityContainer = createContainer(useAuthority);
+
+export default AuthorityContainer;

@@ -1,5 +1,2 @@
 /** @format */
-
-.red {
-    color: red;
-}
+@import '~antd/dist/antd.css';

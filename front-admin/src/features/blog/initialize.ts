@@ -3,8 +3,8 @@
 import { router } from '../../core';
 import blogRoutes from './routes';
 
-const loginInit = () => {
+const blogInit = () => {
     router.addRouter([blogRoutes]);
 };
 
-export default loginInit;
+export default blogInit;

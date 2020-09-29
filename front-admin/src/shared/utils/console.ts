@@ -1,6 +1,6 @@
 /** @format */
 
-const console = (message: string): void => {
+const console = (message: unknown): void => {
     window.console.log(message);
 };
 
