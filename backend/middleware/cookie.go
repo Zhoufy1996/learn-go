@@ -30,10 +30,10 @@ func IsValidCookie(cookie string) bool {
 func SetCookie(userID int, c *gin.Context) error {
 	var cookie = "bear " + strconv.Itoa((userID+4)*89+8) + "end"
 	var validDuration = 60 * 60 * 24
-	c.SetCookie("user_cookie", cookie, validDuration, "/", "localhost", false, true)
+	c.SetCookie("user_cookie", cookie, validDuration, "/", "", false, false)
 	cookieContainer[cookie] = &CookieInfo{
 		UserID:      userID,
-		FailureTime: time.Now().Add(time.Duration(validDuration)),
+		FailureTime: time.Now().AddDate(0, 0, 1),
 	}
 	return nil
 }
