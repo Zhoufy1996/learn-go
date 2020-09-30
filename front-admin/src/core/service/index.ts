@@ -1,6 +1,7 @@
 /** @format */
 
 import Axios from 'axios';
+import localToken from '../state/token';
 import { BASE_URL, TIMEOUT } from './constant';
 
 const service = Axios.create({
@@ -10,6 +11,7 @@ const service = Axios.create({
 
 service.interceptors.request.use(
     (config) => {
+        Object.assign(config.headers, { Authorization: localToken.get() });
         return config;
     },
     (error) => {

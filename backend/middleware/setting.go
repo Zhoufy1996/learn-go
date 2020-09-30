@@ -15,4 +15,6 @@ func SetUp(r *gin.Engine) {
 	r.Use(gin.Recovery())
 
 	r.Use(cors.Default())
+
+	r.Use(JWT())
 }
