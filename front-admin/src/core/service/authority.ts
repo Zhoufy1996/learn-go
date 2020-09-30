@@ -17,7 +17,7 @@ const logout = () => {
 };
 
 const verifyToken = () => {
-    return service.post(`${baseUrl}/verifyToken`, {});
+    return service.post(`${baseUrl}/verifytoken`, {});
 };
 
 const authorityService = {

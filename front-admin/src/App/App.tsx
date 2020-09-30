@@ -42,7 +42,6 @@ const App = () => {
     const Providers = useMemo(() => {
         return store.getStoreComponent();
     }, []);
-    window.console.log(Providers);
     return (
         <HashRouter>
             <Providers>

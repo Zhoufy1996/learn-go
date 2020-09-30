@@ -65,5 +65,6 @@ func JWT() gin.HandlerFunc {
 			return
 		}
 		c.Next()
+		return
 	}
 }

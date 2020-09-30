@@ -11,7 +11,12 @@ const service = Axios.create({
 
 service.interceptors.request.use(
     (config) => {
-        Object.assign(config.headers, { Authorization: localToken.get() });
+        const token = localToken.get();
+        const headers: { Authorization?: string } = {};
+        if (token) {
+            headers.Authorization = token;
+        }
+        Object.assign(config.headers, headers);
         return config;
     },
     (error) => {
