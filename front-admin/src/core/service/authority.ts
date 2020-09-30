@@ -13,7 +13,7 @@ const login = (values: LoginModel): Promise<LoginRes> => {
 };
 
 const logout = () => {
-    return service.post('', {});
+    return service.post('/logout');
 };
 
 const verifyToken = () => {

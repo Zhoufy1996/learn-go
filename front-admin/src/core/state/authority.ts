@@ -14,6 +14,7 @@ const useAuthority = () => {
         const res = await authorityService.login(values);
         localToken.update(res.token);
         setisLogin(true);
+        history.push('/blog');
     };
 
     const logout = () => {

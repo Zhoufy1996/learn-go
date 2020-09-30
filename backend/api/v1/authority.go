@@ -43,6 +43,6 @@ func GetAllToken(c *gin.Context) {
 }
 
 // VerityToken is
-func VerityToken(c *gin.Context) {
+func VerifyToken(c *gin.Context) {
 	response.SuccessResult(c, nil)
 }

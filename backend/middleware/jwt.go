@@ -3,7 +3,7 @@ package middleware
 import (
 	"backend/core/e"
 	"backend/core/response"
-
+	"fmt"
 	"strconv"
 	"time"
 
@@ -22,6 +22,7 @@ var tokenContainer = make(map[string]*Tokeninfo)
 // IsValidToken is
 func IsValidToken(token string) bool {
 	Tokeninfo, ok := tokenContainer[token]
+	fmt.Println(ok)
 	if ok {
 		if time.Now().Before(Tokeninfo.FailureTime) {
 			return true
@@ -32,7 +33,7 @@ func IsValidToken(token string) bool {
 
 // SetToken is
 func SetToken(userID int) string {
-	var token = "bear " + strconv.Itoa((userID+4)*89+8) + "end"
+	var token = "Bearer " + strconv.Itoa((userID+4)*89+8) + "end"
 	tokenContainer[token] = &Tokeninfo{
 		UserID:      userID,
 		FailureTime: time.Now().AddDate(0, 0, 1),
