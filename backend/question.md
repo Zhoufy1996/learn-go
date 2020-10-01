@@ -50,3 +50,5 @@ https://blog.csdn.net/qq_36431213/article/details/82967982
 0, nil, "", false
 
 ### 13. 浏览器设置cookie失败
+
+### 14. Option请求 Authorization请求头报错

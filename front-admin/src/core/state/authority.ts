@@ -3,21 +3,18 @@ import { createContainer } from 'unstated-next';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import authorityService from '../service/authority';
-import TokenContainer from './token';
-import console from '../../shared/utils/console';
+import localToken from './token';
 
 const useAuthority = () => {
     const [isLogin, setisLogin] = useState<boolean>(false);
 
     const history = useHistory();
 
-    const { update } = TokenContainer.useContainer();
-
     const login = async (values: LoginModel) => {
         const res = await authorityService.login(values);
-        console(res);
-        update(res.token);
+        localToken.update(res.token);
         setisLogin(true);
+        history.push('/blog');
     };
 
     const logout = () => {

@@ -2,10 +2,10 @@
 
 import { store } from '..';
 import AuthorityContainer from './authority';
-import TokenContainer from './token';
+import TagContainer from './tag';
 
 const stateInit = () => {
-    store.addState([AuthorityContainer, TokenContainer]);
+    store.addState([AuthorityContainer, TagContainer]);
 };
 
 export default stateInit;

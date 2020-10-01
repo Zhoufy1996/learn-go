@@ -41,3 +41,8 @@ func Login(c *gin.Context) {
 func GetAllToken(c *gin.Context) {
 	response.SuccessResult(c, middleware.GetAllToken())
 }
+
+// VerityToken is
+func VerifyToken(c *gin.Context) {
+	response.SuccessResult(c, nil)
+}

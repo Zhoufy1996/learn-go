@@ -1,12 +1,7 @@
 /** @format */
-
-import { createContainer } from 'unstated-next';
 import useLocalStorage from '../../shared/hooks/useLocalStorage';
 
-const useToken = () => {
-    return useLocalStorage<string>('token');
-};
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const localToken = useLocalStorage<string>('token');
 
-const TokenContainer = createContainer(useToken);
-
-export default TokenContainer;
+export default localToken;

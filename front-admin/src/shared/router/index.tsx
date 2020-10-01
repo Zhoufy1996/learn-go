@@ -1,6 +1,6 @@
 /** @format */
 import React, { ReactNode, Suspense } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { routerModel } from './router.model';
 
@@ -11,6 +11,17 @@ const transformRouter = (_router: routerModel[]): ReactNode[] => {
                 return transSingle(route, `${_baseUrl}${_route.path}`);
             });
         }
+
+        if (_route.redirect) {
+            return (
+                <Redirect
+                    key={_route.path}
+                    from={_route.redirect.from}
+                    to={_route.redirect.to}
+                />
+            );
+        }
+
         return (
             <Route
                 component={_route.component}

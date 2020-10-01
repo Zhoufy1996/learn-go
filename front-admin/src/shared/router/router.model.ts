@@ -11,4 +11,8 @@ export interface routerModel {
     component?: LazyExoticComponent<any> | SimpleComponent;
     children?: routerModel[];
     name: string;
+    redirect?: {
+        from: string;
+        to: string;
+    };
 }

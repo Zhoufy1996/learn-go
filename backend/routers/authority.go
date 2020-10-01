@@ -12,5 +12,6 @@ func initAuthorityRouter(router *gin.RouterGroup) {
 	{
 		apiRouter.POST("/login", v1.Login)
 		apiRouter.GET("/tokens", v1.GetAllToken)
+		apiRouter.POST("/verifytoken", v1.VerifyToken)
 	}
 }

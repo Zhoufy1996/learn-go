@@ -39,7 +39,7 @@ func FailureResult(c *gin.Context, customError *e.CustomError) {
 	var (
 		code     int    = customError.Code
 		msg      string = customError.Msg
-		httpCode int    = customError.HttpCode
+		httpCode int    = customError.HTTPCode
 	)
 	Result(httpCode, &Response{
 		Code: code,
