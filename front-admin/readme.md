@@ -8,3 +8,7 @@
     -   左侧菜单(菜单收缩)
 
 https://stackoverflow.com/questions/16436369/is-it-possible-to-hide-extension-resources-in-the-chrome-web-inspector-network-t
+
+```
+-scheme:chrome-extension
+```
