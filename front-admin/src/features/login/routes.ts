@@ -1,7 +1,7 @@
 /** @format */
 
 import { lazy } from 'react';
-import { routerModel } from '../../shared/router/router.model';
+import { routerModel } from '../../core/models/router.model';
 
 const loginRoutes: routerModel = {
     path: '/login',

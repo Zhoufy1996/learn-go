@@ -13,9 +13,9 @@ func Cors() gin.HandlerFunc {
 		origin := c.Request.Header.Get("Origin")
 		c.Header("Access-Control-Allow-Origin", origin)
 		c.Header("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization")
-		c.Header("Access-Control-Allow-Methods", "POST, OPTIONS, DELETE, PUT")
+		c.Header("Access-Control-Allow-Methods", "POST, OPTIONS, DELETE, PUT, GET")
 		c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type")
-		c.Header("Access-Control-Allow-Credentials", "true")
+		c.Header("Access-Control-Max-Age", "60")
 
 		// 放行所有OPTIONS方法
 		if method == "OPTIONS" {

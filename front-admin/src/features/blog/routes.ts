@@ -1,12 +1,12 @@
 /** @format */
 
 import { lazy } from 'react';
-import { routerModel } from '../../shared/router/router.model';
+import { routerModel } from '../../core/models/router.model';
 
-const loginRoutes: routerModel = {
+const blogRoutes: routerModel = {
     path: '/blog',
     name: 'blog',
     component: lazy(() => import('./index')),
 };
 
-export default loginRoutes;
+export default blogRoutes;

@@ -2,10 +2,7 @@
 import { hot } from 'react-hot-loader/root';
 import ReactDOM from 'react-dom';
 import React from 'react';
-import init from './initialize';
 import App from './App/App';
-
-init();
 
 declare const module: any;
 
