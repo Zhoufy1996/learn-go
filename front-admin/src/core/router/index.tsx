@@ -4,6 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import loginRoutes from '../../features/login/routes';
 import blogRoutes from '../../features/blog/routes';
 import { routerModel } from '../models/router.model';
+import themeRoutes from '../../features/theme/routes';
 
 const transformRouter = (_router: routerModel[]): ReactNode[] => {
     const transSingle = (_route: routerModel, _baseUrl: string): any => {
@@ -51,6 +52,7 @@ export const RouterComponent = ({ routerData }: RouterComponentProps) => {
 export const routerData: routerModel[] = [
     loginRoutes,
     blogRoutes,
+    themeRoutes,
     {
         name: '重定向',
         path: 'redirect1',

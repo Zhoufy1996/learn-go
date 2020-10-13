@@ -17,7 +17,6 @@ service.interceptors.request.use(
             headers.Authorization = token;
         }
         Object.assign(config.headers, headers);
-        window.console.log(config);
         return config;
     },
     (error) => {

@@ -3,6 +3,7 @@ import { hot } from 'react-hot-loader/root';
 import ReactDOM from 'react-dom';
 import React from 'react';
 import App from './App/App';
+import './shared/assets/styles/index.css';
 
 declare const module: any;
 

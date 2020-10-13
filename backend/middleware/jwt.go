@@ -31,6 +31,11 @@ func IsValidToken(token string) bool {
 	return false
 }
 
+/*
+	Header
+	payload
+	secret
+*/
 // SetToken is
 func SetToken(userID int) string {
 	var token = "Bearer " + strconv.Itoa((userID+4)*89+8) + "end"

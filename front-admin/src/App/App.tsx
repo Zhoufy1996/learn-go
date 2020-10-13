@@ -7,8 +7,6 @@ import { CssBaseline } from '@material-ui/core';
 import { RouterComponent, routerData } from '../core/router/index';
 import { Store, containers } from '../core/state/index';
 import AuthorityContainer from '../core/state/authority';
-import './style.css';
-import '../shared/assets/styles/index.scss';
 
 const theme = createMuiTheme();
 
@@ -42,11 +40,11 @@ const App = () => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Store containers={containers}>
-                <HashRouter>
+            <HashRouter>
+                <Store containers={containers}>
                     <AppComponent />
-                </HashRouter>
-            </Store>
+                </Store>
+            </HashRouter>
         </ThemeProvider>
     );
 };
