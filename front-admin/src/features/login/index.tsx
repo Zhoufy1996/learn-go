@@ -1,29 +1,10 @@
 /** @format */
 import React, { useCallback, useState } from 'react';
-import {
-    Button,
-    Container,
-    Divider,
-    makeStyles,
-    Paper,
-    TextField,
-    Theme,
-    Typography,
-} from '@material-ui/core';
+import { Button, Paper, TextField, Typography } from '@material-ui/core';
 
 import AuthorityContainer from '../../core/state/authority';
 import commonStyles from '../../shared/assets/styles';
-
-const useStyles = makeStyles((theme: Theme) => ({
-    peper: {
-        width: 400,
-        padding: `${theme.spacing(4)}px ${theme.spacing(2)}px`,
-    },
-    title: {
-        textAlign: 'center',
-    },
-    textField: {},
-}));
+import useStyles from './style';
 
 const LoginView = () => {
     const classes = useStyles();
@@ -72,7 +53,6 @@ const LoginView = () => {
                         id="bb-username"
                         label="username"
                         required
-                        helperText={username === '' && 'please input username'}
                         autoComplete="bb-username"
                         autoFocus
                         value={username}
@@ -85,7 +65,6 @@ const LoginView = () => {
                         type="password"
                         label="passoword"
                         required
-                        helperText={password === '' && 'please input password'}
                         autoComplete="bb-password"
                         value={password}
                         onChange={handleChangePassword}

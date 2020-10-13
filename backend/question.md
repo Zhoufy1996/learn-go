@@ -52,3 +52,33 @@ https://blog.csdn.net/qq_36431213/article/details/82967982
 ### 13. 浏览器设置cookie失败
 
 ### 14. Option请求 Authorization请求头报错
+
+### 15. JWT/cookie-sesstion
+```
+jwt
+
+{
+    header
+    payload
+    secret
+}
+
+h = base64(header)
+p = base64{payload}
+s = HMACSHA256(h, p, secret)
+
+"Bear " + h + "." + p + "." + s
+
+req => server Authorization
+重新签名，比较是否一致
+
+问题：刷新时机
+```
+
+```
+cookie sesstion
+
+cookie 保存在 redis
+
+查询时刷新时间
+```
