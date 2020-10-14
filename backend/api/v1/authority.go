@@ -30,19 +30,15 @@ func Login(c *gin.Context) {
 		response.FailureResult(c, e.SearchError)
 		return
 	}
-	token := middleware.SetToken(int(u.ID))
+	token, err := middleware.BuildToken(int(u.ID))
+
 	data := &loginRes{
 		Token: token,
 	}
 	response.SuccessResult(c, data)
 }
 
-// GetAllToken is
-func GetAllToken(c *gin.Context) {
-	response.SuccessResult(c, middleware.GetAllToken())
-}
-
-// VerityToken is
+// VerifyToken is
 func VerifyToken(c *gin.Context) {
 	response.SuccessResult(c, nil)
 }
