@@ -11,11 +11,11 @@ func Cors() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		method := c.Request.Method
 		origin := c.Request.Header.Get("Origin")
-		c.Header("Access-Control-Allow-Origin", origin)
-		c.Header("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization")
-		c.Header("Access-Control-Allow-Methods", "POST, OPTIONS, DELETE, PUT, GET")
-		c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type")
-		c.Header("Access-Control-Max-Age", "60")
+		c.Header("Access-Control-Allow-Origin", origin)                                 // 可访问的域名
+		c.Header("Access-Control-Allow-Headers", "Content-Type, Accept, Authorization") // 有效的请求头
+		c.Header("Access-Control-Allow-Methods", "POST, OPTIONS, DELETE, PUT, GET")     // 请求方法
+		c.Header("Access-Control-Expose-Headers", "Authorization")                      // 暴露给外部的请求头，客户端可以获取的请求头
+		c.Header("Access-Control-Max-Age", "60")                                        // 有效时间
 
 		// 放行所有OPTIONS方法
 		if method == "OPTIONS" {

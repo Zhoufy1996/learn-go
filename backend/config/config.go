@@ -26,7 +26,8 @@ type Database struct {
 
 // App a
 type App struct {
-	Port string
+	Port    string
+	Secrect string
 }
 
 type env struct {
@@ -56,7 +57,8 @@ func getCfg() *env {
 	var err error
 	var initEnv = &env{
 		App: &App{
-			Port: "8080",
+			Port:    "8080",
+			Secrect: "Hello",
 		},
 		Database: &Database{
 			Type:     "mysql",

@@ -15,9 +15,24 @@ const LoginView = () => {
 
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [error, setError] = useState<string>('');
 
     const onClick = () => {
-        login({ username, password });
+        const err = [];
+
+        if (username === '') {
+            err.push('username');
+        }
+
+        if (password === '') {
+            err.push('password');
+        }
+
+        if (err.length > 0) {
+            setError(`${err.join('、')}不能为空`);
+        } else {
+            login({ username, password });
+        }
     };
 
     const handleChangeUsername = useCallback(
@@ -29,6 +44,7 @@ const LoginView = () => {
 
     const handleChangePassword = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault();
             return setPassword(e.target.value);
         },
         []
@@ -50,6 +66,7 @@ const LoginView = () => {
                     <TextField
                         variant="outlined"
                         fullWidth
+                        className={classes.textField}
                         id="bb-username"
                         label="username"
                         required
@@ -61,6 +78,7 @@ const LoginView = () => {
                     <TextField
                         variant="outlined"
                         fullWidth
+                        className={classes.textField}
                         id="bb-password"
                         type="password"
                         label="passoword"
@@ -69,11 +87,15 @@ const LoginView = () => {
                         value={password}
                         onChange={handleChangePassword}
                     />
+                    <Typography color="error" variant="body1">
+                        {error}
+                    </Typography>
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
+                        className={classes.button}
                         onClick={onClick}
                     >
                         Sign In
