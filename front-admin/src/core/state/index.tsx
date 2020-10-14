@@ -2,7 +2,6 @@
 import React from 'react';
 import { Container } from 'unstated-next';
 import AuthorityContainer from './authority';
-import TagContainer from './tag';
 
 interface StoreProps {
     containers: Container<any, any>[];
@@ -15,4 +14,4 @@ export const Store = ({ containers, children }: StoreProps) => {
     }, children);
 };
 
-export const containers = [AuthorityContainer, TagContainer];
+export const containers = [AuthorityContainer];

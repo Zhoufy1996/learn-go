@@ -62,7 +62,7 @@ const LoginView = () => {
                 >
                     登录
                 </Typography>
-                <form>
+                <div>
                     <TextField
                         variant="outlined"
                         fullWidth
@@ -100,7 +100,7 @@ const LoginView = () => {
                     >
                         Sign In
                     </Button>
-                </form>
+                </div>
             </Paper>
         </main>
     );
