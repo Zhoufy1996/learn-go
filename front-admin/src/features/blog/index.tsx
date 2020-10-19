@@ -1,15 +1,25 @@
 /** @format */
 import React, { useEffect } from 'react';
+import ArticleContainer from './states/article.state';
+import CategoryContainer from './states/category.state';
 import TagContainer from './states/tag.state';
 
-const BlogView = () => {
-    const { getAllTags, tags } = TagContainer.useContainer();
+export const BlogContainers = [
+    TagContainer,
+    CategoryContainer,
+    ArticleContainer,
+];
 
+const BlogView = () => {
+    const { getAllTags } = TagContainer.useContainer();
+    const { getAllCategorys } = CategoryContainer.useContainer();
+    const { getAllArticles } = ArticleContainer.useContainer();
     useEffect(() => {
         getAllTags();
+        getAllCategorys();
+        getAllArticles();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    window.console.log(tags);
     return <div>123</div>;
 };
 

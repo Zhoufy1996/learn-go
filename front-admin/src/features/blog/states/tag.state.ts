@@ -1,7 +1,6 @@
 /** @format */
 
 import { useState } from 'react';
-/** @format */
 
 import { createContainer } from 'unstated-next';
 import { Tag } from '../models/tag.model';

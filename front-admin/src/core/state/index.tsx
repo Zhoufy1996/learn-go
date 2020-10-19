@@ -1,6 +1,7 @@
 /** @format */
 import React from 'react';
 import { Container } from 'unstated-next';
+import { BlogContainers } from '../../features/blog';
 import AuthorityContainer from './authority';
 
 interface StoreProps {
@@ -14,4 +15,4 @@ export const Store = ({ containers, children }: StoreProps) => {
     }, children);
 };
 
-export const containers = [AuthorityContainer];
+export const containers = [AuthorityContainer, ...BlogContainers];
