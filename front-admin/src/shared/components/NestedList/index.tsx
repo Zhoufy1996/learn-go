@@ -5,12 +5,14 @@ import ListItem from '@material-ui/core/ListItem';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { ListItemText } from '@material-ui/core';
+import { ListItemText, useTheme } from '@material-ui/core';
 
 export interface ListData {
     key: string;
-    component: JSX.Element | null;
+    // component: ({ data }: { data: ListData }) => JSX.Element | null;
+    element: JSX.Element | null;
     children?: ListData[] | null;
+    value: string;
 }
 
 interface CustomListViewProps {
@@ -26,9 +28,13 @@ const ListView = ({
     onClick = () => {},
     expandComponent = null,
 }: CustomListViewProps) => {
+    // const Component = data.component;
     return (
         <ListItem style={style} button onClick={onClick}>
-            <ListItemText>{data.component}</ListItemText>
+            <ListItemText>
+                {data.element}
+                {/* <Component data={data} /> */}
+            </ListItemText>
             {expandComponent}
         </ListItem>
     );
@@ -39,6 +45,7 @@ interface CustomListItemProps {
     openKeys: string[];
     close: (data: ListData) => void;
     open: (data: ListData) => void;
+    depth: number;
 }
 
 const CustomListItem = ({
@@ -46,7 +53,9 @@ const CustomListItem = ({
     openKeys,
     close,
     open,
+    depth,
 }: CustomListItemProps) => {
+    const theme = useTheme();
     const isOpen = openKeys.includes(data.key);
     const hasChildren: boolean =
         (data.children && data.children.length > 0) || false;
@@ -70,6 +79,7 @@ const CustomListItem = ({
                 expandComponent={expandComponent}
                 data={data}
                 onClick={handleClick}
+                style={{ paddingLeft: theme.spacing(depth) }}
             />
             {hasChildren && (
                 <Collapse in={isOpen} timeout="auto" unmountOnExit>
@@ -81,6 +91,7 @@ const CustomListItem = ({
                                     openKeys={openKeys}
                                     close={close}
                                     open={open}
+                                    depth={depth + 1}
                                     key={row.key}
                                 />
                             );
@@ -92,11 +103,13 @@ const CustomListItem = ({
 };
 
 interface CustomNestedListProps {
+    dataSource: ListData[];
     defaultOpenKeys?: string[];
     openKeys?: string[];
-    dataSource: ListData[];
-    onClick?: (onClickData?: ListData, openkeys?: string[]) => void;
+    onClick?: (onClickData: ListData, openkeys: string[]) => void;
     listTag?: 'div' | 'nav';
+    className?: string;
+    style?: React.CSSProperties;
 }
 
 const CustomNestedList = ({
@@ -105,6 +118,8 @@ const CustomNestedList = ({
     openKeys,
     onClick = () => {},
     listTag = 'div',
+    className = '',
+    style = {},
 }: CustomNestedListProps) => {
     const isControlledMode = openKeys !== undefined;
 
@@ -117,12 +132,10 @@ const CustomNestedList = ({
     );
     const changeOpenKeysState = useCallback(
         (data: ListData, keys: string[]) => {
-            if (isControlledMode) {
-                onClick(data, keys);
-            }
+            onClick(data, keys);
             setOpenKeysState(keys);
         },
-        [isControlledMode, onClick]
+        [onClick]
     );
 
     const open = useCallback(
@@ -144,7 +157,12 @@ const CustomNestedList = ({
         [openKeysState, changeOpenKeysState]
     );
     return (
-        <List component={listTag} aria-labelledby="nested-list-subheader">
+        <List
+            style={style}
+            className={className}
+            component={listTag}
+            aria-labelledby="nested-list-subheader"
+        >
             {dataSource.map((row) => {
                 return (
                     <CustomListItem
@@ -152,6 +170,7 @@ const CustomNestedList = ({
                         openKeys={openKeysState}
                         open={open}
                         close={close}
+                        depth={0}
                         key={row.key}
                     />
                 );

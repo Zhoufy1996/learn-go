@@ -58,18 +58,18 @@ const testRouter = (): routerModel[] => {
         depth: number
     ): routerModel[] => {
         return range(start, end).map((n) => {
-            const name = `${start}/${end}/${n}/${depth}/${uuidv4()}`;
+            const name = `/${start}-${end}-${n}-${depth}-${uuidv4()}`;
             const children =
                 depth > 0 ? rangeRouter(start, end, depth - 1) : undefined;
             return {
-                path: name,
+                path: `${uuidv4()}`,
                 component: () => <div>{name}</div>,
                 name,
                 children,
             };
         });
     };
-    return rangeRouter(1, 5, 4);
+    return rangeRouter(1, 5, 1);
 };
 
 export const routerData: routerModel[] = [

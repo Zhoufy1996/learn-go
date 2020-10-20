@@ -1,15 +1,19 @@
 /** @format */
 
 import React, { useEffect, useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, useHistory } from 'react-router-dom';
 import { createContainer } from 'unstated-next';
 import { ListData } from '../../shared/components/NestedList';
 import { routerModel } from '../models/router.model';
 import { routerData } from '../router';
 
 const Transfrom = (data: routerModel, _baseUrl: string): ListData => {
+    const isMatch = useRouteMatch(`${_baseUrl}${data.path}`);
     return {
-        component: <span>{data.name}</span>,
+        element: (
+            <span style={isMatch ? { color: 'red' } : {}}>{data.name}</span>
+        ),
+        // component: RouteComponent,
         key: data.path,
         children:
             data.children == null
@@ -17,6 +21,7 @@ const Transfrom = (data: routerModel, _baseUrl: string): ListData => {
                 : data.children.map((d) =>
                       Transfrom(d, `${_baseUrl}${d.path}`)
                   ),
+        value: `${_baseUrl}${data.path}`,
     };
 };
 
@@ -25,12 +30,21 @@ const transformRouterDataToListData = (dataArr: routerModel[]): ListData[] => {
 };
 
 const RouterState = () => {
+    const history = useHistory();
     const [routerSidebarData, setRouterSideBarData] = useState<ListData[]>(
         transformRouterDataToListData(routerData)
     );
 
+    const handleSelect = (data: ListData, openKeys: string[]) => {
+        window.console.log(data);
+        if (!data.children) {
+            history.push(data.value);
+        }
+    };
+
     return {
         routerSidebarData,
+        handleSelect,
     };
 };
 

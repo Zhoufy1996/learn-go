@@ -4,9 +4,15 @@ import CustomNestedList from '../../shared/components/NestedList';
 import RouterContainer from '../state/router';
 
 const SiderBar = () => {
-    const { routerSidebarData } = RouterContainer.useContainer();
+    const { routerSidebarData, handleSelect } = RouterContainer.useContainer();
     window.console.log(routerSidebarData);
-    return <CustomNestedList dataSource={routerSidebarData} />;
+    return (
+        <CustomNestedList
+            style={{ width: 300 }}
+            dataSource={routerSidebarData}
+            onClick={handleSelect}
+        />
+    );
 };
 
 export default SiderBar;
