@@ -1,11 +1,12 @@
 /** @format */
 import React from 'react';
-import NestedList from '../../shared/components/NestedList';
+import CustomNestedList from '../../shared/components/NestedList';
 import RouterContainer from '../state/router';
 
 const SiderBar = () => {
     const { routerSidebarData } = RouterContainer.useContainer();
-    return <NestedList data={routerSidebarData} />;
+    window.console.log(routerSidebarData);
+    return <CustomNestedList dataSource={routerSidebarData} />;
 };
 
 export default SiderBar;

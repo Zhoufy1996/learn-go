@@ -1,6 +1,7 @@
 /** @format */
 import React, { ReactNode, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import loginRoutes from '../../features/login/routes';
 import blogRoutes from '../../features/blog/routes';
 import { routerModel } from '../models/router.model';
@@ -57,7 +58,7 @@ const testRouter = (): routerModel[] => {
         depth: number
     ): routerModel[] => {
         return range(start, end).map((n) => {
-            const name = `${start}/${end}/${n}/${depth}`;
+            const name = `${start}/${end}/${n}/${depth}/${uuidv4()}`;
             const children =
                 depth > 0 ? rangeRouter(start, end, depth - 1) : undefined;
             return {
