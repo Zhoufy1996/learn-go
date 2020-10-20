@@ -1,5 +1,6 @@
 /** @format */
 import React, { useEffect } from 'react';
+import SiderBar from '../../core/components/Sidebar';
 import ArticleContainer from './states/article.state';
 import CategoryContainer from './states/category.state';
 import TagContainer from './states/tag.state';
@@ -20,7 +21,7 @@ const BlogView = () => {
         getAllArticles();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    return <div>123</div>;
+    return <SiderBar />;
 };
 
 export default BlogView;

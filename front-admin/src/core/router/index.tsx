@@ -5,6 +5,7 @@ import loginRoutes from '../../features/login/routes';
 import blogRoutes from '../../features/blog/routes';
 import { routerModel } from '../models/router.model';
 import themeRoutes from '../../features/theme/routes';
+import { range } from '../../shared/utils/range';
 
 const transformRouter = (_router: routerModel[]): ReactNode[] => {
     const transSingle = (_route: routerModel, _baseUrl: string): any => {
@@ -49,7 +50,29 @@ export const RouterComponent = ({ routerData }: RouterComponentProps) => {
     );
 };
 
+const testRouter = (): routerModel[] => {
+    const rangeRouter = (
+        start: number,
+        end: number,
+        depth: number
+    ): routerModel[] => {
+        return range(start, end).map((n) => {
+            const name = `${start}/${end}/${n}/${depth}`;
+            const children =
+                depth > 0 ? rangeRouter(start, end, depth - 1) : undefined;
+            return {
+                path: name,
+                component: () => <div>{name}</div>,
+                name,
+                children,
+            };
+        });
+    };
+    return rangeRouter(1, 5, 4);
+};
+
 export const routerData: routerModel[] = [
+    ...testRouter(),
     loginRoutes,
     blogRoutes,
     themeRoutes,

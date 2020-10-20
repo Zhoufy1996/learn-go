@@ -3,6 +3,7 @@ import React from 'react';
 import { Container } from 'unstated-next';
 import { BlogContainers } from '../../features/blog';
 import AuthorityContainer from './authority';
+import RouterContainer from './router';
 
 interface StoreProps {
     containers: Container<any, any>[];
@@ -15,4 +16,8 @@ export const Store = ({ containers, children }: StoreProps) => {
     }, children);
 };
 
-export const containers = [AuthorityContainer, ...BlogContainers];
+export const containers = [
+    AuthorityContainer,
+    RouterContainer,
+    ...BlogContainers,
+];

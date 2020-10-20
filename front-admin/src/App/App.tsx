@@ -33,6 +33,7 @@ const AppComponent = () => {
         }
         return null;
     }, [hasInit]);
+
     return Component;
 };
 

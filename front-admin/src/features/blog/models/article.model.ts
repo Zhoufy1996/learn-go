@@ -1,5 +1,7 @@
 /** @format */
 
+import { Tag } from './tag.model';
+
 export interface Article {
     body: string;
     categoryId: number;
@@ -8,7 +10,7 @@ export interface Article {
     description: string;
     id: number;
     subTitle: string;
-    tags: null;
+    tags: Tag[];
     title: string;
     updateAt: string;
     userId: number;
