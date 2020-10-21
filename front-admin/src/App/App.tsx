@@ -1,19 +1,23 @@
 /** @format */
 import React, { useMemo, useState, useEffect } from 'react';
-import { HashRouter } from 'react-router-dom';
+import { HashRouter, useRouteMatch } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 
 import { RouterComponent, routerData } from '../core/router/index';
 import { Store, containers } from '../core/state/index';
 import AuthorityContainer from '../core/state/authority';
+import SiderBar from '../core/components/Sidebar';
+import useStyles from './style';
+import RouterContainer from '../core/state/router';
 
 const theme = createMuiTheme();
 
 const AppComponent = () => {
     const [hasInit, setHasInit] = useState<boolean>(false);
-
+    const isLoginView = useRouteMatch('/login');
     const { verifyToken } = AuthorityContainer.useContainer();
+    const classes = useStyles();
 
     useEffect(() => {
         const init = async () => {
@@ -27,14 +31,23 @@ const AppComponent = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const Component = useMemo(() => {
+    const element = useMemo(() => {
         if (hasInit) {
             return <RouterComponent routerData={routerData} />;
         }
         return null;
     }, [hasInit]);
 
-    return Component;
+    return (
+        <>
+            {isLoginView ? null : (
+                <div className={classes.root}>
+                    <SiderBar />
+                    <main className={classes.main}>{element}</main>
+                </div>
+            )}
+        </>
+    );
 };
 
 const App = () => {

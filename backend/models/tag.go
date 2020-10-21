@@ -6,6 +6,7 @@ type Tag struct {
 	Title       string    `gorm:"not null;unique" json:"title"`
 	Description string    `gorm:"default:''" json:"description"`
 	Articles    []Article `gorm:"many2many:article_tags;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"articles"`
+	SortNo      int       `gorm:"default:-1" json:"sortNo"`
 }
 
 // GetTag 根据id获取标签

@@ -14,4 +14,5 @@ export interface Article {
     title: string;
     updateAt: string;
     userId: number;
+    sortNo: number;
 }

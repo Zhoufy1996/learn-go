@@ -8,4 +8,5 @@ export interface Category {
     id: number;
     title: string;
     updateAt: string;
+    sortNo: number;
 }

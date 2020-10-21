@@ -15,4 +15,5 @@ export interface routerModel {
         from: string;
         to: string;
     };
+    showInSiderbar: boolean;
 }

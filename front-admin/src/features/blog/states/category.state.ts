@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { createContainer } from 'unstated-next';
 import { Category } from '../models/category.model';
@@ -9,10 +9,10 @@ import categoryService from '../services/category.service';
 const CategoryContainer = createContainer(() => {
     const [categorys, setCategorys] = useState<Category[]>([]);
 
-    const getAllCategorys = async () => {
+    const getAllCategorys = useCallback(async () => {
         const allCategorys: Category[] = await categoryService.getAllCategorys();
-        setCategorys(allCategorys);
-    };
+        setCategorys(allCategorys.sort((l, r) => l.sortNo - r.sortNo));
+    }, []);
     return {
         categorys,
         getAllCategorys,

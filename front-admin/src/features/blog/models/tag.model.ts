@@ -8,4 +8,5 @@ export interface Tag {
     id: number;
     title: string;
     updateAt: string;
+    sortNo: number;
 }

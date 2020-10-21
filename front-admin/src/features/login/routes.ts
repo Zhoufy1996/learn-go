@@ -7,6 +7,7 @@ const loginRoutes: routerModel = {
     path: '/login',
     name: 'login',
     component: lazy(() => import('./index')),
+    showInSiderbar: false,
 };
 
 export default loginRoutes;
