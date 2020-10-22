@@ -10,9 +10,15 @@ const componentRoutes: routerModel = {
     name: '组件',
     children: [
         {
-            path: 'nestlist',
+            path: '/nestlist',
             name: '嵌套列表',
             component: lazy(() => import('./NestedList')),
+            showInSiderbar: true,
+        },
+        {
+            path: '/drag',
+            name: '拖动',
+            component: lazy(() => import('./drag/index')),
             showInSiderbar: true,
         },
     ],

@@ -40,7 +40,9 @@ const AppComponent = () => {
 
     return (
         <>
-            {isLoginView ? null : (
+            {isLoginView ? (
+                element
+            ) : (
                 <div className={classes.root}>
                     <SiderBar />
                     <main className={classes.main}>{element}</main>
