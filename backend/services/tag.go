@@ -14,19 +14,7 @@ func GetTag(id uint) (*models.Tag, error) {
 // GetAllTags 获取所有标签
 func GetAllTags() (*[]models.Tag, error) {
 	tags, err := models.GetAllTags()
-	tagsSort, err := models.GetSortNoSliceByTableName("tag")
-	if err != nil {
-		return nil, err
-	}
-	var sortNoMap = make(map[uint]uint)
-
-	for _, t := range tagsSort {
-		sortNoMap[t] = t
-	}
-
-	models.AddSortNoToTag(tags, sortNoMap)
-
-	return tags, nil
+	return tags, err
 }
 
 // GetTagsCount 获取标签数

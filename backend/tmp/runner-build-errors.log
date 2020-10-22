@@ -1,4 +1,0 @@
-# backend/services
-services/tag.go:23:11: syntax error: unexpected :=, expecting =
-services/tag.go:24:19: syntax error: unexpected =, expecting comma or }
-note: module requires Go 1.15

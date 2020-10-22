@@ -3,40 +3,44 @@
 import { useCallback, useState } from 'react';
 
 import { createContainer } from 'unstated-next';
-import { ExchangeTag, Tag } from '../models/tag.model';
+import { SortNoMap, Tag } from '../models/tag.model';
 import tagService from '../services/tag.service';
 
 const TagContainer = createContainer(() => {
-    const [tags, setTags] = useState<Tag[]>([]);
+    const [tags, setTags] = useState<(Tag & { sortNo: number })[]>([]);
 
     const getAllTags = useCallback(async () => {
         const allTags: Tag[] = await tagService.getAllTags();
-        setTags(allTags.sort((l, r) => l.sortNo - r.sortNo));
+        const sortNos: number[] = [];
+        const sortNoMaploc: SortNoMap = {};
+        sortNos.forEach((n, i) => {
+            sortNoMaploc[n] = i;
+        });
+        const sortTags = allTags
+            .map((tag) => {
+                return {
+                    ...tag,
+                    sortNo: sortNoMaploc[tag.id],
+                };
+            })
+            .sort((l, r) => l.sortNo - r.sortNo);
+
+        setTags(sortTags);
     }, []);
 
-    const exChangeTag = useCallback(
-        async (tag1: ExchangeTag, tag2: ExchangeTag) => {
-            const map = {
-                [tag1.id]: tag2.sortNo,
-                [tag2.id]: tag1.sortNo,
+    const changeSort = (map: SortNoMap) => {
+        const sortTags = tags.map((tag) => {
+            return {
+                ...tag,
+                sortNo: map[tag.id],
             };
-            const newTags = tags.map((tag) => {
-                if (map[tag.id]) {
-                    return {
-                        ...tag,
-                        sortNo: map[tag.id],
-                    };
-                }
-                return tag;
-            });
-            setTags(newTags);
-        },
-        [tags]
-    );
+        });
+        setTags(sortTags);
+    };
+
     return {
         tags,
         getAllTags,
-        exChangeTag,
     };
 });
 

@@ -29,6 +29,7 @@ func SetUp(r *gin.Engine) {
 	initArticleRouter(apiBaseGroup)
 	initAuthorityRouter(apiBaseGroup)
 	initDevRouter(apiBaseGroup)
+	initSortNoRouter(apiBaseGroup)
 
 	url := ginSwagger.URL(fmt.Sprintf("http://127.0.0.1:%s/swagger/doc.json", config.AppSetting.Port)) // The url pointing to API definition
 
