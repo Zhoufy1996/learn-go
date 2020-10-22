@@ -8,6 +8,12 @@ type Tag struct {
 	Articles    []Article `gorm:"many2many:article_tags;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"articles"`
 }
 
+func AddSortNoToTag(tags *[]Tag, sortNoMap map[uint]uint) {
+	for _, t := range *tags {
+		t.sortNo = sortNoMap[t.ID]
+	}
+}
+
 // GetTag 根据id获取标签
 func GetTag(id uint) (*Tag, error) {
 	var tag Tag

@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func configScript() {
+func ConfigScript() {
 	if strIsTrue(config.ScriptSetting.User) {
 		superUser := &User{
 			Name:     "zhou",
@@ -61,21 +61,22 @@ func configScript() {
 	}
 }
 
-func sortNoScript() {
+// SortNoScript is
+func SortNoScript() error {
 	tags, err := GetAllTags()
 	if err != nil {
 		fmt.Printf("%v", err)
 	} else {
 		s := ""
 		for _, t := range *tags {
-			s += string(t.ID)
+			s += fmt.Sprint(t.ID) + ","
 		}
 		err = CreateLackSortNoByTableName("tag", s)
 		if err != nil {
 			fmt.Printf("%v", err)
 		}
 	}
-
+	return err
 }
 
 func strIsTrue(str string) bool {

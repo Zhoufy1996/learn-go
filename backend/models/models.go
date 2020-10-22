@@ -64,7 +64,7 @@ func SetUp() {
 
 	// 创建初始库
 	fmt.Println("开始创建初始库")
-	configScript()
-	sortNoScript()
+	ConfigScript()
+	SortNoScript()
 	fmt.Println("初始库创建成功")
 }
