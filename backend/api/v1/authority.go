@@ -5,6 +5,7 @@ import (
 	"backend/core/response"
 	"backend/dto"
 	"backend/middleware"
+	"backend/models"
 	"backend/services"
 
 	"github.com/gin-gonic/gin"
@@ -41,4 +42,14 @@ func Login(c *gin.Context) {
 // VerifyToken is
 func VerifyToken(c *gin.Context) {
 	response.SuccessResult(c, nil)
+}
+
+// GetAllSortNos is
+func GetAllSortNos(c *gin.Context) {
+	sortNos, err := models.GetAllSortNos()
+	if err != nil {
+		response.FailureResult(c, e.ParamError)
+		return
+	}
+	response.SuccessResult(c, sortNos)
 }

@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"strings"
 
 	"gorm.io/gorm"
@@ -24,7 +23,7 @@ func GetAllSortNos() (*[]Sortno, error) {
 // GetSortNoByTableName is
 func GetSortNoByTableName(tableName string) (*Sortno, error) {
 	var sortNo Sortno
-	err := db.Model(&Sortno{}).Where("TableName := ?", tableName).Error
+	err := db.Where("table_name = ?", tableName).First(&sortNo).Error
 	return &sortNo, err
 }
 
@@ -44,29 +43,28 @@ func GetSortNoSliceByTableName(tableName string) ([]uint, error) {
 }
 
 // CreateSortNo is
-func CreateSortNo(tableName string) error {
+func CreateSortNo(tableName string, ids string) error {
 	err := db.Model(&Sortno{}).Create(&Sortno{
 		TableName: tableName,
-		IDs:       "",
+		IDs:       ids,
 	}).Error
-	fmt.Println(tableName)
 	return err
 }
 
 // UpdateSortNo is
 func UpdateSortNo(tableName string, ids string) error {
-	err := db.Model(&Sortno{}).Where("TableName := ?", tableName).Updates(&Sortno{
+	err := db.Model(&Sortno{}).Where("TableName = ?", tableName).Updates(&Sortno{
 		IDs: ids,
 	}).Error
 	return err
 }
 
 // CreateLackSortNoByTableName is
-func CreateLackSortNoByTableName(tableName string) error {
+func CreateLackSortNoByTableName(tableName string, ids string) error {
 	_, err := GetSortNoByTableName(tableName)
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
-			err = CreateSortNo(tableName)
+			err = CreateSortNo(tableName, ids)
 			return err
 		}
 	}

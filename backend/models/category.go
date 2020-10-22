@@ -6,7 +6,6 @@ type Category struct {
 	Title       string    `gorm:"unique" json:"title"`
 	Description string    `gorm:"default:''" json:"description"`
 	Articles    []Article `gorm:"foreignKey:CategoryID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"articles"`
-	SortNo      int       `gorm:"default:-1" json:"sortNo"`
 }
 
 // GetCategory 根据id获取类型

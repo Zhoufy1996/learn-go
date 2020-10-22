@@ -62,10 +62,20 @@ func configScript() {
 }
 
 func sortNoScript() {
-	err := CreateLackSortNoByTableName("tag")
+	tags, err := GetAllTags()
 	if err != nil {
 		fmt.Printf("%v", err)
+	} else {
+		s := ""
+		for _, t := range *tags {
+			s += string(t.ID)
+		}
+		err = CreateLackSortNoByTableName("tag", s)
+		if err != nil {
+			fmt.Printf("%v", err)
+		}
 	}
+
 }
 
 func strIsTrue(str string) bool {

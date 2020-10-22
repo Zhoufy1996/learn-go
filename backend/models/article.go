@@ -12,7 +12,6 @@ type Article struct {
 	Body        string `gorm:"default:''" json:"body"`
 	CategoryID  uint   `json:"categoryId"`
 	Tags        []Tag  `gorm:"many2many:article_tags;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"tags"`
-	SortNo      int    `gorm:"default:-1" json:"sortNo"`
 }
 
 // CreateArticle is
