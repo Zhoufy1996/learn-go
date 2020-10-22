@@ -13,6 +13,7 @@ const ArticleContainer = createContainer(() => {
         const allArticles: Article[] = await articleService.getAllArticles();
         setArticles(allArticles);
     }, []);
+
     return {
         articles,
         getAllArticles,

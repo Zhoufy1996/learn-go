@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func runScript() {
+func configScript() {
 	if strIsTrue(config.ScriptSetting.User) {
 		superUser := &User{
 			Name:     "zhou",
@@ -59,7 +59,13 @@ func runScript() {
 			config.UpdateCfg("Script", "Article", "false")
 		}
 	}
+}
 
+func sortNoScript() {
+	err := CreateLackSortNoByTableName("tag")
+	if err != nil {
+		fmt.Printf("%v", err)
+	}
 }
 
 func strIsTrue(str string) bool {

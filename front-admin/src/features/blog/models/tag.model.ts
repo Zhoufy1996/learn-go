@@ -10,3 +10,8 @@ export interface Tag {
     updateAt: string;
     sortNo: number;
 }
+
+export interface ExchangeTag {
+    id: number;
+    sortNo: number;
+}

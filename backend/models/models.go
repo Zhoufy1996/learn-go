@@ -58,11 +58,13 @@ func SetUp() {
 
 	// 模型迁移
 	fmt.Println("开始迁移schema")
-	db.AutoMigrate(&Category{}, &Tag{}, &Article{}, &User{})
+	db.AutoMigrate(&Sortno{}, &Category{}, &Tag{}, &Article{}, &User{})
+
 	fmt.Println("schema迁移完毕")
 
 	// 创建初始库
 	fmt.Println("开始创建初始库")
-	runScript()
+	configScript()
+	sortNoScript()
 	fmt.Println("初始库创建成功")
 }
