@@ -8,13 +8,12 @@ export interface Tag {
     id: number;
     title: string;
     updateAt: string;
-}
-
-export interface ExchangeTag {
-    id: number;
     sortNo: number;
 }
 
+/**
+ * id: sortNo
+ */
 export interface SortNoMap {
     [id: number]: number;
 }

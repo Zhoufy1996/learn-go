@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme: Theme) => {
             display: 'flex',
             flexDirection: 'column',
         },
+
         title: {
             textAlign: 'center',
             flexGrow: 0,

@@ -68,8 +68,11 @@ func SortNoScript() error {
 		fmt.Printf("%v", err)
 	} else {
 		s := ""
-		for _, t := range *tags {
-			s += fmt.Sprint(t.ID) + ","
+		for i, t := range *tags {
+			s += fmt.Sprint(t.ID)
+			if i+1 != len(*tags) {
+				s += ","
+			}
 		}
 		err = CreateLackSortNoByTableName("tag", s)
 		if err != nil {

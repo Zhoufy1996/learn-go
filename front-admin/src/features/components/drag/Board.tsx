@@ -6,7 +6,6 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { range } from '../../../shared/utils/range';
 import BoradSquare from './BordSquare';
 import Knight from './Knight';
-import Square from './Square';
 
 interface BoardProps {
     knightPosition: [number, number];

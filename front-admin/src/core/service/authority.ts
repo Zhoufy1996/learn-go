@@ -2,7 +2,7 @@
 
 import service from '.';
 
-const baseUrl = 'authority';
+const baseUrl = '/authority';
 
 interface LoginRes {
     token: string;

@@ -1,6 +1,7 @@
 package models
 
 import (
+	"strconv"
 	"strings"
 
 	"gorm.io/gorm"
@@ -35,8 +36,9 @@ func GetSortNoSliceByTableName(tableName string) ([]uint, error) {
 	}
 
 	result := make([]uint, 0)
-	for s := range strings.Split(sortNo.IDs, ",") {
-		result = append(result, uint(s))
+	for _, s := range strings.Split(sortNo.IDs, ",") {
+		id, _ := strconv.ParseUint(s, 10, 64)
+		result = append(result, uint(id))
 	}
 
 	return result, nil
@@ -53,7 +55,7 @@ func CreateSortNo(tableName string, ids string) error {
 
 // UpdateSortNo is
 func UpdateSortNo(tableName string, ids string) error {
-	err := db.Model(&Sortno{}).Where("TableName = ?", tableName).Updates(&Sortno{
+	err := db.Model(&Sortno{}).Where("table_name = ?", tableName).Updates(&Sortno{
 		IDs: ids,
 	}).Error
 	return err

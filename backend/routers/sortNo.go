@@ -12,5 +12,6 @@ func initSortNoRouter(router *gin.RouterGroup) {
 	{
 		apiRouter.GET("/all", v1.GetAllSortNos)
 		apiRouter.GET("/tablename/:tablename", v1.GetSortNo)
+		apiRouter.PUT("/update", v1.UpdateSortNo) // 更新标签
 	}
 }
