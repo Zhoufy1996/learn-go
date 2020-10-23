@@ -78,8 +78,7 @@ const TagPaper = ({ tag }: TagPaperProps) => {
         }
     }, [sortMap, changeSort, dragTag, tag.id]);
 
-    //
-    const handleSort = useCallback(() => {
+    const handleSortAfter = useCallback(() => {
         if (dragTag != null) {
             const ids = Object.entries<number>(sortMap as ArrayLike<number>)
                 .sort((l, r) => l[1] - r[1])
@@ -100,7 +99,7 @@ const TagPaper = ({ tag }: TagPaperProps) => {
     }, [dragTag, changeSort, sortMap, tag.id]);
 
     return (
-        <>
+        <div className={classes.container}>
             <Grid item xs={3}>
                 <Paper
                     style={{ opacity: isDragging ? 0.5 : 1 }}
@@ -137,9 +136,12 @@ const TagPaper = ({ tag }: TagPaperProps) => {
                 </Paper>
             </Grid>
             <Grid item xs={1}>
-                <DropContainer style={{ height: '100%' }} ondrop={handleSort} />
+                <DropContainer
+                    style={{ height: '100%' }}
+                    ondrop={handleSortAfter}
+                />
             </Grid>
-        </>
+        </div>
     );
 };
 

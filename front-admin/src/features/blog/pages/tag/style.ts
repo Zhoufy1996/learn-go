@@ -4,6 +4,10 @@ import { makeStyles, Theme } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => {
     return {
+        container: {
+            paddingTop: theme.spacing(1),
+            paddingBottom: theme.spacing(1),
+        },
         paper: {
             flexGrow: 1,
             height: 200,

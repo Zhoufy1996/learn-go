@@ -1,5 +1,5 @@
 /** @format */
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Button, Divider, Grid, Paper, Typography } from '@material-ui/core';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -7,6 +7,8 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import TagContainer from '../../states/tag.state';
 import useStyles from './style';
 import TagPaper from './paper';
+import DragGrid from '../../../../shared/components/DragGrid/DragGrid';
+import { Tag } from '../../models/tag.model';
 
 const TagView = () => {
     // const classes = useStyles();
@@ -15,9 +17,26 @@ const TagView = () => {
     useEffect(() => {
         getAllTags();
     }, [getAllTags]);
+
+    const render = useCallback((data: Tag) => {
+        return null;
+    }, []);
     return (
         <DndProvider backend={HTML5Backend}>
-            <div>
+            <DragGrid
+                dropDragItemProps={{
+                    dragProps: {},
+                    dropProps: {},
+                }}
+                data={tagsShow}
+                type="tag"
+                render={render}
+            />
+        </DndProvider>
+    );
+};
+
+/* <div>
                 <Grid container spacing={1}>
                     {tagsShow.map((tag) => {
                         return (
@@ -28,9 +47,6 @@ const TagView = () => {
                         );
                     })}
                 </Grid>
-            </div>
-        </DndProvider>
-    );
-};
+            </div> */
 
 export default TagView;

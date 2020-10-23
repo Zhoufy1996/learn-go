@@ -47,6 +47,12 @@ const eslintConfig = {
         'react-hooks/rules-of-hooks': 'error', // 检查 Hook 的规则
         'react-hooks/exhaustive-deps': 'warn', // 检查 effect 的依赖
         'react/require-default-props': ['off'],
+        'react/jsx-props-no-spreading': [
+            'error',
+            {
+                exceptions: ['DragItem', 'DropContainer', 'DropDragItem'],
+            },
+        ],
     },
 };
 
