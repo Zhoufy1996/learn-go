@@ -11,7 +11,7 @@ const TagContainer = createContainer(() => {
     const [tags, setTags] = useState<Tag[]>([]);
     const [sortMap, setSortMap] = useState<SortNoMap>({});
     const [dragTag, setDragTag] = useState<Tag | null>(null);
-
+    const [sortArr, setSortArr] = useState<string[]>([]);
     const getAllTags = useCallback(async () => {
         const allTags: Tag[] = await tagService.getAllTags();
         const sortNos: number[] = await sortNoService.getSortNoByTableName(
@@ -21,6 +21,8 @@ const TagContainer = createContainer(() => {
         sortNos.forEach((n, i) => {
             sortNoMaploc[n] = i;
         });
+
+        setSortArr(sortNos.map((n) => String(n)));
 
         setTags(allTags);
         setSortMap(sortNoMaploc);
@@ -48,12 +50,14 @@ const TagContainer = createContainer(() => {
     }, [sortMap, tags]);
 
     return {
+        tags,
         tagsShow,
         getAllTags,
         changeSort,
         sortMap,
         dragTag,
         setDragTag,
+        sortArr,
     };
 });
 

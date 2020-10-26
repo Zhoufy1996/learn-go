@@ -11,26 +11,48 @@ import DragGrid from '../../../../shared/components/DragGrid/DragGrid';
 import { Tag } from '../../models/tag.model';
 
 const TagView = () => {
-    // const classes = useStyles();
+    const classes = useStyles();
 
-    const { getAllTags, tagsShow } = TagContainer.useContainer();
+    const { getAllTags, tags, sortArr } = TagContainer.useContainer();
     useEffect(() => {
         getAllTags();
     }, [getAllTags]);
 
-    const render = useCallback((data: Tag) => {
-        return null;
-    }, []);
+    const render = useCallback(
+        (tag: Tag, isDragging: boolean) => {
+            return (
+                <Paper
+                    style={{ opacity: isDragging ? 0.5 : 1 }}
+                    className={classes.paper}
+                >
+                    <Typography
+                        className={classes.title}
+                        variant="h4"
+                        component="h1"
+                    >
+                        {tag.title}
+                    </Typography>
+                    <Divider />
+                    <Typography className={classes.description} variant="body1">
+                        {tag.description}
+                    </Typography>
+                    <div className={classes.footer}>
+                        <Button>编辑</Button>
+                        <Button>删除</Button>
+                    </div>
+                </Paper>
+            );
+        },
+        [classes]
+    );
     return (
         <DndProvider backend={HTML5Backend}>
-            <DragGrid
-                dropDragItemProps={{
-                    dragProps: {},
-                    dropProps: {},
-                }}
-                data={tagsShow}
+            <DragGrid<Tag>
+                dataSource={tags}
                 type="tag"
+                getKey={(data) => data.id}
                 render={render}
+                defaultKeys={sortArr}
             />
         </DndProvider>
     );

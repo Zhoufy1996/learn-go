@@ -5,7 +5,7 @@ interface DragEventProps {
     isDragging?: boolean;
 }
 
-interface BaseDragItemProps<T> {
+export interface BaseDragItemProps<T> {
     children?: JSX.Element | JSX.Element[] | null;
     component?: ElementType<any>;
     getStyle?: (props: DragEventProps) => React.CSSProperties;
@@ -18,7 +18,7 @@ interface DropEventProps {
     canDrop?: boolean;
 }
 
-interface BaseDropContainerProps<T> {
+export interface BaseDropContainerProps<T> {
     children?: JSX.Element | JSX.Element[] | null;
     component?: ElementType<any>;
     getStyle?: (props: DropEventProps) => React.CSSProperties;
@@ -45,16 +45,36 @@ export interface DropContainerProps<T> extends BaseDropContainerProps<T> {
     data: T;
 }
 
-export interface SortMap {
+export interface KeySortNoMap {
     [k: string]: number;
+}
+
+export interface SortNoKeyMap {
+    [k: number]: string;
 }
 
 export interface DragGridProps<T> {
     dataSource: T[];
     type: string;
-    key: string;
-    sortKeys: number[];
+    dropDragItemProps?: DropDragItemProps<T>;
+    sortKeys?: string[];
+    defaultKeys?: string[];
     getKey: (data: T) => number;
-    render: (data: T) => JSX.Element | JSX.Element[] | null;
-    dropDragItemProps: DropDragItemProps<T>;
+    render: (
+        data: T,
+        isDragging: boolean
+    ) => JSX.Element | JSX.Element[] | null;
+    onChange?: (keys: string[]) => any;
+}
+
+type position = 'before' | 'after' | 'current';
+
+export interface HandleDrop<T> {
+    ({ dropData, position }: { dropData: T; position: position }): void;
+}
+
+export interface HandleDropProps<T> {
+    dropData: T;
+    draggingData: T | null;
+    keySortNoMap: KeySortNoMap;
 }
