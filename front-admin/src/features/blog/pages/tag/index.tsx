@@ -13,11 +13,15 @@ import { Tag } from '../../models/tag.model';
 const TagView = () => {
     const classes = useStyles();
 
-    const { getAllTags, tags, sortArr } = TagContainer.useContainer();
+    const {
+        getAllTags,
+        tags,
+        sortArr,
+        changeSort,
+    } = TagContainer.useContainer();
     useEffect(() => {
         getAllTags();
     }, [getAllTags]);
-
     const render = useCallback(
         (tag: Tag, isDragging: boolean) => {
             return (
@@ -52,7 +56,8 @@ const TagView = () => {
                 type="tag"
                 getKey={(data) => data.id}
                 render={render}
-                defaultKeys={sortArr}
+                sortKeys={sortArr}
+                onChange={changeSort}
             />
         </DndProvider>
     );

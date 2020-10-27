@@ -27,7 +27,7 @@ const DragItem = <T,>({
     }, [component]);
 
     const style: React.CSSProperties = useMemo(() => {
-        return getStyle({ isDragging });
+        return { cursor: 'move', ...getStyle({ isDragging }) };
     }, [getStyle, isDragging]);
 
     const className: string = useMemo(() => {

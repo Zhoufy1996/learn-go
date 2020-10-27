@@ -59,6 +59,8 @@ export interface DragGridProps<T> {
     dropDragItemProps?: DropDragItemProps<T>;
     sortKeys?: string[];
     defaultKeys?: string[];
+    rowCount?: number;
+    paddingRatio?: number;
     getKey: (data: T) => number;
     render: (
         data: T,
