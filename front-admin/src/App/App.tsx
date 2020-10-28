@@ -9,7 +9,6 @@ import { Store, containers } from '../core/state/index';
 import AuthorityContainer from '../core/state/authority';
 import SiderBar from '../core/components/Sidebar';
 import useStyles from './style';
-import RouterContainer from '../core/state/router';
 
 const theme = createMuiTheme();
 
