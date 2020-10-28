@@ -21,6 +21,12 @@ const componentRoutes: routerModel = {
             component: lazy(() => import('./drag/index')),
             showInSiderbar: true,
         },
+        {
+            path: '/markdown',
+            name: 'markdown',
+            component: lazy(() => import('./Markdown')),
+            showInSiderbar: true,
+        },
     ],
     showInSiderbar: true,
 };
