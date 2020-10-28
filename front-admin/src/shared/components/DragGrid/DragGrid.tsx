@@ -161,13 +161,19 @@ const DragGrid = <T,>({
     );
 
     const getStyleAfterContainer = useCallback(
-        ({ isOver }: DropEventProps) => {
+        ({ isOver, index }: DropEventProps) => {
+            if (index === data.length - 1) {
+                return {
+                    backgroundColor: isOver ? 'yellow' : 'inherit',
+                    flex: 1,
+                };
+            }
             return {
                 width: `${(paddingWidth / 2) * 100}%`,
                 backgroundColor: isOver ? 'yellow' : 'inherit',
             };
         },
-        [paddingWidth]
+        [paddingWidth, data]
     );
 
     return (
@@ -187,7 +193,7 @@ const DragGrid = <T,>({
                                 <DragItem
                                     isDraggingEffect={onDragging}
                                     data={row}
-                                    dragType="type"
+                                    dragType={type}
                                 >
                                     <DropContainer
                                         data={row}
