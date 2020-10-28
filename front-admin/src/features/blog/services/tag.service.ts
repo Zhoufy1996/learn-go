@@ -1,35 +1,39 @@
 /** @format */
 
 import service from '../../../core/service';
-import { Tag } from '../models/tag.model';
+import { CreateTagProps, Tag, UpdateTagProps } from '../models/tag.model';
 
-const baseUrl = '/tag';
+const BASEURL = '/tag';
 
 const getAllTags = (): Promise<Tag[]> => {
-    return service.get(`${baseUrl}/all`);
+    return service.get(`${BASEURL}/all`);
 };
 
 const getTagById = (id: number): Promise<Tag> => {
-    return service.get(`${baseUrl}/id/${id}`);
+    return service.get(`${BASEURL}/id/${id}`);
 };
 
 const getTagCount = (): Promise<number> => {
-    return service.get(`${baseUrl}/count`);
+    return service.get(`${BASEURL}/count`);
 };
 
-const addTag = () => {};
+const createTag = (tag: CreateTagProps): Promise<void> => {
+    return service.post(`${BASEURL}/add`, tag);
+};
 
-const updateTag = () => {};
+const updateTag = (tag: UpdateTagProps): Promise<void> => {
+    return service.put(`${BASEURL}/update`, tag);
+};
 
 const deleteTag = (id: number): Promise<void> => {
-    return service.delete(`${baseUrl}/delete/${id}`);
+    return service.delete(`${BASEURL}/delete/${id}`);
 };
 
 const tagService = {
     getAllTags,
     getTagById,
     getTagCount,
-    addTag,
+    createTag,
     updateTag,
     deleteTag,
 };

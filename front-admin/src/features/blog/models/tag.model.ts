@@ -1,19 +1,19 @@
 /** @format */
 
-export interface Tag {
-    articles: null;
-    createdAt: string;
-    deletedAt: { Time: string; Valid: boolean };
+import { Article } from './article.model';
+
+interface TagBase {
     description: string;
-    id: number;
     title: string;
-    updateAt: string;
-    sortNo: number;
 }
 
-/**
- * id: sortNo
- */
-export interface SortNoMap {
-    [id: number]: number;
+export interface Tag extends TagBase {
+    id: number;
+    articles: Article[] | null;
+}
+
+export interface CreateTagProps extends TagBase {}
+
+export interface UpdateTagProps extends TagBase {
+    id: number;
 }

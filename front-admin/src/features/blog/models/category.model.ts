@@ -1,12 +1,17 @@
 /** @format */
 
-export interface Category {
-    articles: null;
-    createdAt: string;
-    deletedAt: { Time: string; Valid: boolean };
+interface CategoryBase {
     description: string;
-    id: number;
     title: string;
-    updateAt: string;
-    sortNo: number;
+}
+
+export interface Category extends CategoryBase {
+    articles: null;
+    id: number;
+}
+
+export interface CreateCategoryProps extends CategoryBase {}
+
+export interface UpdateCategoryProps extends CategoryBase {
+    id: number;
 }

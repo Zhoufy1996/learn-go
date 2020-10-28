@@ -3,65 +3,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import {
-    DragGridProps,
-    KeySortNoMap,
-    HandleDrop,
-    BaseDragItemProps,
-    BaseDropContainerProps,
-} from './model';
-import DropDragItem from './DropDragItem';
+import { DragGridProps, DropEventProps, KeySortNoMap } from './model';
 import useStyles from './style';
 import DropContainer from './DropContainer';
-
-// 问题 map 与 两次 splite 性能比较
-const moveTo = <T,>(beginIndex: number, endIndex: number, originArr: T[]) => {
-    if (beginIndex < endIndex) {
-        return originArr.map((n, index) => {
-            if (index < beginIndex) {
-                return n;
-            }
-
-            if (index >= beginIndex && index < endIndex) {
-                return originArr[index + 1];
-            }
-
-            if (index === endIndex) {
-                return originArr[beginIndex];
-            }
-
-            return n;
-        });
-    }
-
-    if (beginIndex > endIndex) {
-        return originArr.map((n, index) => {
-            if (index < endIndex) {
-                return n;
-            }
-
-            if (index === endIndex) {
-                return originArr[beginIndex];
-            }
-
-            if (index > endIndex && index <= beginIndex) {
-                return originArr[index - 1];
-            }
-            return n;
-        });
-    }
-    return originArr;
-};
-
-const arrToMap = (keys: string[]): KeySortNoMap => {
-    return Object.fromEntries(keys.map((key, index) => [key, index]));
-};
-
-const mapToArr = (map: KeySortNoMap): string[] => {
-    return Object.entries(map)
-        .sort(([_1, lSortNo], [_2, rSortNo]) => lSortNo - rSortNo)
-        .map(([key]) => key);
-};
+import DragItem from './DragItem';
+import { moveTo, arrToMap, mapToArr } from './utils';
 
 /**
  * 受控 / 非受控
@@ -73,16 +19,19 @@ const DragGrid = <T,>({
     getKey,
     type,
     render,
-    dropDragItemProps,
     sortKeys,
     defaultKeys = [],
     onChange = () => {},
     rowCount = 4,
     paddingRatio = 0.4,
 }: DragGridProps<T>) => {
+    const classes = useStyles();
+
+    // 计算container与width的长度
     const containerWidth = useMemo(() => {
         return 1 / ((paddingRatio + 1) * rowCount);
     }, [rowCount, paddingRatio]);
+
     const paddingWidth = useMemo(() => {
         return (1 / ((paddingRatio + 1) * rowCount)) * paddingRatio;
     }, [paddingRatio, rowCount]);
@@ -101,20 +50,19 @@ const DragGrid = <T,>({
         [rowCount]
     );
 
+    // true为受控,false为非受控
     const isControllerdKeys = sortKeys != null;
 
-    const classes = useStyles();
-
+    // 传入arr, 转化为map,兼容受控与非受控模式
     const [keySortNoMap, setKeySortNoMap] = useState<KeySortNoMap>(
         arrToMap(isControllerdKeys ? (sortKeys as string[]) : defaultKeys)
     );
+
     useEffect(() => {
         if (isControllerdKeys && sortKeys) {
             setKeySortNoMap(arrToMap(sortKeys));
         }
     }, [sortKeys, isControllerdKeys]);
-
-    const [draggingData, setDraggingData] = useState<T | null>(null);
 
     const sortNoKeys: string[] = useMemo(() => {
         return mapToArr(keySortNoMap);
@@ -125,6 +73,9 @@ const DragGrid = <T,>({
             return keySortNoMap[getKey(l)] - keySortNoMap[getKey(r)];
         });
     }, [dataSource, getKey, keySortNoMap]);
+
+    // 与拖动排序有关的逻辑
+    const [draggingData, setDraggingData] = useState<T | null>(null);
 
     const handleChange = useCallback(
         (map: KeySortNoMap) => {
@@ -189,25 +140,35 @@ const DragGrid = <T,>({
         [draggingData, getKey, sortNoKeys, handleChange, keySortNoMap]
     );
 
-    const dragProps: BaseDragItemProps<T> = useMemo(() => {
-        return {
-            isDraggingEffect: (isDraggingData, isDragging) => {
-                if (isDragging) {
-                    setDraggingData(isDraggingData);
-                } else {
-                    setDraggingData(null);
-                }
-            },
-        };
+    const onDragging = useCallback((isDraggingData: T, isDragging: boolean) => {
+        if (isDragging) {
+            setDraggingData(isDraggingData);
+        } else {
+            setDraggingData(null);
+        }
     }, []);
 
-    const dropProps: BaseDropContainerProps<T> = useMemo(() => {
-        return {
-            onDrop: (dropData) => {
-                handleExChange(dropData);
-            },
-        };
-    }, [handleExChange]);
+    const getStyleBeforeContainer = useCallback(
+        ({ isOver, index }: DropEventProps) => {
+            return {
+                width: isFirst(index)
+                    ? `${(paddingWidth / 2) * 100}%`
+                    : `${paddingWidth * 100}%`,
+                backgroundColor: isOver ? 'yellow' : 'inherit',
+            };
+        },
+        [isFirst, paddingWidth]
+    );
+
+    const getStyleAfterContainer = useCallback(
+        ({ isOver }: DropEventProps) => {
+            return {
+                width: `${(paddingWidth / 2) * 100}%`,
+                backgroundColor: isOver ? 'yellow' : 'inherit',
+            };
+        },
+        [paddingWidth]
+    );
 
     return (
         <DndProvider backend={HTML5Backend}>
@@ -219,49 +180,38 @@ const DragGrid = <T,>({
                                 accept={type}
                                 data={row}
                                 onDrop={handleDropBefore}
-                                getStyle={({ isOver }) => {
-                                    return {
-                                        width: isFirst(index)
-                                            ? `${(paddingWidth / 2) * 100}%`
-                                            : `${paddingWidth * 100}%`,
-                                        backgroundColor: isOver
-                                            ? 'yellow'
-                                            : 'inherit',
-                                    };
-                                }}
+                                index={index}
+                                getStyle={getStyleBeforeContainer}
                             />
                             <div style={{ width: `${containerWidth * 100}%` }}>
-                                <DropDragItem
-                                    {...dropDragItemProps}
-                                    dragProps={dragProps}
-                                    dropProps={dropProps}
+                                <DragItem
+                                    isDraggingEffect={onDragging}
                                     data={row}
-                                    type={type}
+                                    dragType="type"
                                 >
-                                    {render(
-                                        row,
-                                        draggingData == null
-                                            ? false
-                                            : getKey(draggingData) ===
-                                                  getKey(row)
-                                    )}
-                                </DropDragItem>
+                                    <DropContainer
+                                        data={row}
+                                        accept={type}
+                                        onDrop={handleExChange}
+                                        index={index}
+                                    >
+                                        {render(
+                                            row,
+                                            draggingData == null
+                                                ? false
+                                                : getKey(draggingData) ===
+                                                      getKey(row)
+                                        )}
+                                    </DropContainer>
+                                </DragItem>
                             </div>
                             {isLast(index) || index === data.length - 1 ? (
                                 <DropContainer
                                     accept={type}
                                     data={row}
                                     onDrop={handleDropAfter}
-                                    getStyle={({ isOver }) => {
-                                        return {
-                                            width: `${
-                                                (paddingWidth / 2) * 100
-                                            }%`,
-                                            backgroundColor: isOver
-                                                ? 'yellow'
-                                                : 'inherit',
-                                        };
-                                    }}
+                                    index={index}
+                                    getStyle={getStyleAfterContainer}
                                 />
                             ) : null}
                         </React.Fragment>

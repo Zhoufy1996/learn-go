@@ -10,12 +10,13 @@ export interface BaseDragItemProps<T> {
     component?: ElementType<any>;
     getStyle?: (props: DragEventProps) => React.CSSProperties;
     getClassName?: (props: DragEventProps) => string;
-    isDraggingEffect?: (data: T, isDragging?: boolean) => void;
+    isDraggingEffect?: (data: T, isDragging: boolean) => void;
 }
 
-interface DropEventProps {
-    isOver?: boolean;
-    canDrop?: boolean;
+export interface DropEventProps {
+    isOver: boolean;
+    canDrop: boolean;
+    index: number;
 }
 
 export interface BaseDropContainerProps<T> {
@@ -25,14 +26,7 @@ export interface BaseDropContainerProps<T> {
     getClassName?: (props: DropEventProps) => string;
     onDrop?: (data: T) => void;
     onCanDrop?: (data: T) => boolean;
-}
-
-export interface DropDragItemProps<T> {
-    data: T;
-    type: string;
-    children?: JSX.Element | JSX.Element[] | null;
-    dragProps?: BaseDragItemProps<T>;
-    dropProps?: BaseDropContainerProps<T>;
+    index: number;
 }
 
 export interface DragItemProps<T> extends BaseDragItemProps<T> {
@@ -49,14 +43,9 @@ export interface KeySortNoMap {
     [k: string]: number;
 }
 
-export interface SortNoKeyMap {
-    [k: number]: string;
-}
-
 export interface DragGridProps<T> {
     dataSource: T[];
     type: string;
-    dropDragItemProps?: DropDragItemProps<T>;
     sortKeys?: string[];
     defaultKeys?: string[];
     rowCount?: number;
@@ -67,16 +56,4 @@ export interface DragGridProps<T> {
         isDragging: boolean
     ) => JSX.Element | JSX.Element[] | null;
     onChange?: (keys: string[]) => any;
-}
-
-type position = 'before' | 'after' | 'current';
-
-export interface HandleDrop<T> {
-    ({ dropData, position }: { dropData: T; position: position }): void;
-}
-
-export interface HandleDropProps<T> {
-    dropData: T;
-    draggingData: T | null;
-    keySortNoMap: KeySortNoMap;
 }

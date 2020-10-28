@@ -1,35 +1,43 @@
 /** @format */
 
 import service from '../../../core/service';
-import { Category } from '../models/category.model';
+import {
+    Category,
+    CreateCategoryProps,
+    UpdateCategoryProps,
+} from '../models/category.model';
 
-const baseUrl = '/category';
+const BASEURL = '/category';
 
 const getAllCategorys = (): Promise<Category[]> => {
-    return service.get(`${baseUrl}/all`);
+    return service.get(`${BASEURL}/all`);
 };
 
 const getCategoryById = (id: number): Promise<Category> => {
-    return service.get(`${baseUrl}/id/${id}`);
+    return service.get(`${BASEURL}/id/${id}`);
 };
 
 const getCategoryCount = (): Promise<number> => {
-    return service.get(`${baseUrl}/count`);
+    return service.get(`${BASEURL}/count`);
 };
 
-const addCategory = () => {};
+const createCategory = (category: CreateCategoryProps) => {
+    return service.post(`${BASEURL}/update`, category);
+};
 
-const updateCategory = () => {};
+const updateCategory = (category: UpdateCategoryProps) => {
+    return service.put(`${BASEURL}/update`, category);
+};
 
 const deleteCategory = (id: number): Promise<void> => {
-    return service.delete(`${baseUrl}/delete/${id}`);
+    return service.delete(`${BASEURL}/delete/${id}`);
 };
 
 const tagService = {
     getAllCategorys,
     getCategoryById,
     getCategoryCount,
-    addCategory,
+    createCategory,
     updateCategory,
     deleteCategory,
 };

@@ -12,6 +12,7 @@ const DropContainer = <T,>({
     getClassName = () => '',
     onDrop = () => {},
     onCanDrop = () => true,
+    index,
 }: DropContainerProps<T>) => {
     const [{ isOver, canDrop }, drop] = useDrop({
         accept,
@@ -27,12 +28,12 @@ const DropContainer = <T,>({
     }, [component]);
 
     const style: React.CSSProperties = useMemo(() => {
-        return getStyle({ isOver, canDrop });
-    }, [getStyle, isOver, canDrop]);
+        return getStyle({ isOver, canDrop, index });
+    }, [getStyle, isOver, canDrop, index]);
 
     const className: string = useMemo(() => {
-        return getClassName({ isOver, canDrop });
-    }, [getClassName, isOver, canDrop]);
+        return getClassName({ isOver, canDrop, index });
+    }, [getClassName, isOver, canDrop, index]);
 
     return (
         <ElementTag ref={drop} style={style} className={className}>
