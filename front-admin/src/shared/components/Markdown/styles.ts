@@ -14,12 +14,17 @@ const useStyle = makeStyles((theme: Theme) => {
         },
         divide: {
             height: '100%',
-            flexBasis: 5,
-            background: 'black',
+            flexBasis: 22,
+            backgroundColor: 'gray',
+            backgroundClip: 'content-box',
+            cursor: 'move',
+            paddingLeft: 10,
+            paddingRight: 10,
         },
         read: {
             height: '100%',
             flex: 1,
+            overflow: 'auto',
         },
     };
 });
