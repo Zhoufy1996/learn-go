@@ -11,6 +11,28 @@ const useStyle = makeStyles((theme: Theme) => {
         },
         write: {
             height: '100%',
+            overflow: 'hidden',
+            display: 'flex',
+            flexDirection: 'column',
+        },
+        toolbar: {
+            display: 'flex',
+            flexWrap: 'wrap',
+            border: '1px solid black',
+        },
+        toolteam: {
+            marginLight: 10,
+            marginRight: 10,
+            borderRight: '1px solid red',
+        },
+        icon: {
+            cursor: 'pointer',
+            marginLeft: 5,
+            marginRight: 5,
+        },
+        text: {
+            flex: 1,
+            overflow: 'auto',
         },
         divide: {
             height: '100%',

@@ -9,6 +9,9 @@ import { CustomMarkdownProps } from './model';
 import CustomDivide from './divide';
 import useStyle from './styles';
 import useRect from '../../hooks/useRect';
+import Toolbar from './toolbar';
+import tools from './tools';
+import useMove from './useMove';
 
 const editorOption = {
     tabSize: 2,
@@ -24,7 +27,6 @@ const editorOption = {
  * 3. 样式调整
  * 4. 同屏滚动
  */
-
 const CustomMarkdown = ({ defaultValue, onChange }: CustomMarkdownProps) => {
     const classes = useStyle();
 
@@ -39,20 +41,28 @@ const CustomMarkdown = ({ defaultValue, onChange }: CustomMarkdownProps) => {
         },
         [onChange]
     );
+    const handleViewPortChange = useCallback(
+        (instance: CodeMirror.Editor, from: number, to: number) => {
+            window.console.log(instance, from, to);
+        },
+        []
+    );
     useEffect(() => {
         if (textAreaInstance.current) {
             cm.current = CodeMirror.fromTextArea(textAreaInstance.current, {
                 ...editorOption,
             });
             cm.current.on('change', handleChange);
+            cm.current.on('viewportChange', handleViewPortChange);
             return () => {
                 if (cm.current != null) {
                     cm.current.off('change', handleChange);
+                    cm.current.off('viewportChange', handleViewPortChange);
                 }
             };
         }
         return () => {};
-    }, [handleChange]);
+    }, [handleChange, handleViewPortChange]);
 
     useEffect(() => {
         const id = setInterval(() => {
@@ -68,7 +78,7 @@ const CustomMarkdown = ({ defaultValue, onChange }: CustomMarkdownProps) => {
     }, []);
 
     const rootRef = useRef<HTMLDivElement>(null);
-    const { width } = useRect(rootRef);
+    const { width, height } = useRect(rootRef);
 
     const [writeWidth, setWriteWidth] = useState<number>(0);
 
@@ -84,12 +94,24 @@ const CustomMarkdown = ({ defaultValue, onChange }: CustomMarkdownProps) => {
             return pre + offsetX;
         });
     }, []);
+
+    const { startMove, move, endMove } = useMove(onMove);
+
     return (
-        <div className={classes.root} ref={rootRef}>
+        <div
+            onMouseUp={endMove}
+            onMouseLeave={endMove}
+            className={classes.root}
+            ref={rootRef}
+            onMouseMove={move}
+        >
             <div className={classes.write} style={{ width: writeWidth }}>
-                <textarea ref={textAreaInstance} />
+                <Toolbar tools={tools} />
+                <div className={classes.text}>
+                    <textarea ref={textAreaInstance} />
+                </div>
             </div>
-            <CustomDivide onMove={onMove} className={classes.divide} />
+            <div onMouseDown={startMove} className={classes.divide} />
             <div className={classes.read}>
                 <article className="markdown-body">
                     <ReactMarkdown>{value}</ReactMarkdown>
