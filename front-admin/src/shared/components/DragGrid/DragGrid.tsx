@@ -36,20 +36,6 @@ const DragGrid = <T,>({
         return (1 / ((paddingRatio + 1) * rowCount)) * paddingRatio;
     }, [paddingRatio, rowCount]);
 
-    const isFirst = useCallback(
-        (n: number) => {
-            return n % rowCount === 0;
-        },
-        [rowCount]
-    );
-
-    const isLast = useCallback(
-        (n: number) => {
-            return (n + 1) % rowCount === 0;
-        },
-        [rowCount]
-    );
-
     // true为受控,false为非受控
     const isControllerdKeys = sortKeys != null;
 
@@ -63,10 +49,6 @@ const DragGrid = <T,>({
             setKeySortNoMap(arrToMap(sortKeys));
         }
     }, [sortKeys, isControllerdKeys]);
-
-    const sortNoKeys: string[] = useMemo(() => {
-        return mapToArr(keySortNoMap);
-    }, [keySortNoMap]);
 
     const data = useMemo(() => {
         return dataSource.sort((l, r) => {
@@ -107,37 +89,33 @@ const DragGrid = <T,>({
     const handleDropAfter = useCallback(
         (dropData: T) => {
             if (draggingData != null) {
-                const dropKey = getKey(dropData);
-                const dragKey = getKey(draggingData);
-                const dropIndex = keySortNoMap[dropKey];
-                const dragIndex = keySortNoMap[dragKey];
+                const dropIndex = keySortNoMap[getKey(dropData)];
+                const dragIndex = keySortNoMap[getKey(draggingData)];
                 const newKeys = moveTo<string>(
                     dragIndex,
                     dropIndex - (dragIndex < dropIndex ? 0 : 1),
-                    sortNoKeys
+                    mapToArr(keySortNoMap)
                 );
                 handleChange(arrToMap(newKeys));
             }
         },
-        [draggingData, getKey, sortNoKeys, handleChange, keySortNoMap]
+        [draggingData, getKey, handleChange, keySortNoMap]
     );
 
     const handleDropBefore = useCallback(
         (dropData: T) => {
             if (draggingData != null) {
-                const dropKey = getKey(dropData);
-                const dragKey = getKey(draggingData);
-                const dropIndex = keySortNoMap[dropKey];
-                const dragIndex = keySortNoMap[dragKey];
+                const dropIndex = keySortNoMap[getKey(dropData)];
+                const dragIndex = keySortNoMap[getKey(draggingData)];
                 const newKeys = moveTo<string>(
                     dragIndex,
                     dropIndex - (dragIndex < dropIndex ? 1 : 0),
-                    sortNoKeys
+                    mapToArr(keySortNoMap)
                 );
                 handleChange(arrToMap(newKeys));
             }
         },
-        [draggingData, getKey, sortNoKeys, handleChange, keySortNoMap]
+        [draggingData, getKey, handleChange, keySortNoMap]
     );
 
     const onDragging = useCallback((isDraggingData: T, isDragging: boolean) => {
@@ -151,13 +129,14 @@ const DragGrid = <T,>({
     const getStyleBeforeContainer = useCallback(
         ({ isOver, index }: DropEventProps) => {
             return {
-                width: isFirst(index)
-                    ? `${(paddingWidth / 2) * 100}%`
-                    : `${paddingWidth * 100}%`,
+                width:
+                    index % rowCount === 0
+                        ? `${(paddingWidth / 2) * 100}%`
+                        : `${paddingWidth * 100}%`,
                 backgroundColor: isOver ? 'yellow' : 'inherit',
             };
         },
-        [isFirst, paddingWidth]
+        [rowCount, paddingWidth]
     );
 
     const getStyleAfterContainer = useCallback(
@@ -211,7 +190,9 @@ const DragGrid = <T,>({
                                     </DropContainer>
                                 </DragItem>
                             </div>
-                            {isLast(index) || index === data.length - 1 ? (
+                            {/* 每行最后一项 */}
+                            {(index + 1) % rowCount === 0 ||
+                            index === data.length - 1 ? (
                                 <DropContainer
                                     accept={type}
                                     data={row}
