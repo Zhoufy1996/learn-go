@@ -1,28 +1,26 @@
 /** @format */
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
-import { Button, makeStyles, Theme } from '@material-ui/core';
 import Editor from 'draft-js-plugins-editor';
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js';
 import ReactMarkdown from 'react-markdown';
-
-const useStyles = makeStyles((theme: Theme) => {
-    return {
-        root: {
-            backgroundColor: '#fff',
-            height: '100%',
-        },
-    };
-});
+import useStyle from './styles';
+import useMove from './useMove';
+import useRect from '../../hooks/useRect';
+import useSyncScroll from './useSyncScroll';
 
 interface DProps {
     value: string;
     onChange: (v: string) => void;
 }
 
+/**
+ * 1. 样式
+ * 2. 同步滚动 按比例
+ */
 const DraftDemo = ({ value, onChange }: DProps) => {
-    const classes = useStyles();
+    const classes = useStyle();
     const [editorState, setEditorState] = useState<EditorState>(() =>
         EditorState.createWithContent(convertFromRaw(markdownToDraft(value)))
     );
@@ -40,10 +38,45 @@ const DraftDemo = ({ value, onChange }: DProps) => {
         [onChange]
     );
 
+    const rootRef = useRef<HTMLDivElement>(null);
+    const { width } = useRect(rootRef);
+    const [writeWidth, setWriteWidth] = useState<number>(0);
+
+    useEffect(() => {
+        if (writeWidth === 0) {
+            setWriteWidth(Math.max(0, (width - 5) / 2));
+        }
+    }, [width, writeWidth, setWriteWidth]);
+
+    const onMove = useCallback((offsetX) => {
+        setWriteWidth((pre) => {
+            return pre + offsetX;
+        });
+    }, []);
+
+    const { startMove, move, endMove } = useMove(onMove);
+    const { ref1, ref2 } = useSyncScroll<HTMLDivElement>();
     return (
-        <div className={classes.root}>
-            <Editor editorState={editorState} onChange={handleChange} />
-            <ReactMarkdown>{value}</ReactMarkdown>
+        <div
+            onMouseUp={endMove}
+            onMouseLeave={endMove}
+            className={classes.root}
+            ref={rootRef}
+            onMouseMove={move}
+        >
+            <div className={classes.write} style={{ width: writeWidth }}>
+                {/* <div className={classes.toolbar}>
+                    <Button>导入</Button>
+                </div> */}
+
+                <div ref={ref1} className={classes.text}>
+                    <Editor editorState={editorState} onChange={handleChange} />
+                </div>
+            </div>
+            <div onMouseDown={startMove} className={classes.divide} />
+            <div ref={ref2} className={classes.read}>
+                <ReactMarkdown>{value}</ReactMarkdown>
+            </div>
         </div>
     );
 };
