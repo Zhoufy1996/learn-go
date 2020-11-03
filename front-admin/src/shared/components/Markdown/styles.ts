@@ -9,6 +9,7 @@ const useStyle = makeStyles((theme: Theme) => {
             height: '100%',
             display: 'flex',
             backgroundColor: '#fff',
+            overflow: 'hidden',
         },
         write: {
             height: '100%',
@@ -33,7 +34,8 @@ const useStyle = makeStyles((theme: Theme) => {
         },
         text: {
             flex: 1,
-            overflow: 'auto',
+            overflow: 'hidden',
+            // margin: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
         },
         divide: {
             height: '100%',
@@ -47,7 +49,8 @@ const useStyle = makeStyles((theme: Theme) => {
         read: {
             height: '100%',
             flex: 1,
-            overflow: 'auto',
+            overflow: 'hidden',
+            // margin: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
         },
     };
 });

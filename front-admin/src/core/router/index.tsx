@@ -45,7 +45,7 @@ interface RouterComponentProps {
 
 export const RouterComponent = ({ routerData }: RouterComponentProps) => {
     return (
-        <Suspense fallback={<div>loading</div>}>
+        <Suspense fallback={<div>组件加载中</div>}>
             <Switch>{transformRouter(routerData)}</Switch>
         </Suspense>
     );

@@ -1,10 +1,18 @@
 /** @format */
 import React, { useCallback, useEffect, useState, useRef } from 'react';
-import { EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import {
+    EditorState,
+    RichUtils,
+    convertToRaw,
+    convertFromRaw,
+    Editor,
+} from 'draft-js';
 import 'draft-js/dist/Draft.css';
-import Editor from 'draft-js-plugins-editor';
+// import Editor from 'draft-js-plugins-editor';
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js';
 import ReactMarkdown from 'react-markdown';
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
 import useStyle from './styles';
 import useMove from './useMove';
 import useRect from '../../hooks/useRect';
@@ -56,6 +64,7 @@ const DraftDemo = ({ value, onChange }: DProps) => {
 
     const { startMove, move, endMove } = useMove(onMove);
     const { ref1, ref2 } = useSyncScroll<HTMLDivElement>();
+    window.console.log(value);
     return (
         <div
             onMouseUp={endMove}
@@ -64,18 +73,28 @@ const DraftDemo = ({ value, onChange }: DProps) => {
             ref={rootRef}
             onMouseMove={move}
         >
-            <div className={classes.write} style={{ width: writeWidth }}>
-                {/* <div className={classes.toolbar}>
-                    <Button>导入</Button>
-                </div> */}
-
-                <div ref={ref1} className={classes.text}>
-                    <Editor editorState={editorState} onChange={handleChange} />
+            <div className={classes.write}>
+                <div className={classes.text}>
+                    <SimpleBar
+                        scrollableNodeProps={{ ref: ref1 }}
+                        style={{ height: '100%', width: writeWidth }}
+                    >
+                        <Editor
+                            editorState={editorState}
+                            onChange={handleChange}
+                        />
+                    </SimpleBar>
                 </div>
             </div>
             <div onMouseDown={startMove} className={classes.divide} />
-            <div ref={ref2} className={classes.read}>
-                <ReactMarkdown>{value}</ReactMarkdown>
+
+            <div className={classes.read}>
+                <SimpleBar
+                    scrollableNodeProps={{ ref: ref2 }}
+                    style={{ height: '100%' }}
+                >
+                    <ReactMarkdown>{value}</ReactMarkdown>
+                </SimpleBar>
             </div>
         </div>
     );
