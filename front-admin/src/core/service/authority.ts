@@ -2,7 +2,7 @@
 
 import service from '.';
 
-const baseUrl = 'authority';
+const baseUrl = '/authority';
 
 interface LoginRes {
     token: string;
@@ -12,12 +12,12 @@ const login = (values: LoginModel): Promise<LoginRes> => {
     return service.post(`${baseUrl}/login`, values);
 };
 
-const logout = () => {
+const logout = (): Promise<void> => {
     return service.post('/logout');
 };
 
-const verifyToken = () => {
-    return service.post(`${baseUrl}/verifytoken`, {});
+const verifyToken = (): Promise<void> => {
+    return service.post(`${baseUrl}/verifytoken`);
 };
 
 const authorityService = {

@@ -23,3 +23,13 @@ func GetArticle(c *gin.Context) {
 	}
 	response.SuccessResult(c, article)
 }
+
+// GetAllArticles is
+func GetAllArticles(c *gin.Context) {
+	articles, err := services.GetAllArticles()
+	if err != nil {
+		response.FailureResult(c, e.SearchError)
+		return
+	}
+	response.SuccessResult(c, articles)
+}

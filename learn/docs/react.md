@@ -1,6 +1,5 @@
-<!-- @format -->
-
 [中文文档](https://react.docschina.org/docs/getting-started.html)
+## 1.44
 
 ## 1. 核心概念
 

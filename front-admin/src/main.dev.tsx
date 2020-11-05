@@ -2,10 +2,8 @@
 import { hot } from 'react-hot-loader/root';
 import ReactDOM from 'react-dom';
 import React from 'react';
-import init from './initialize';
 import App from './App/App';
-
-init();
+import './shared/assets/styles/index.css';
 
 declare const module: any;
 

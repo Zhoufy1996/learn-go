@@ -1,5 +1,11 @@
 package models
 
+import (
+	"fmt"
+
+	"gorm.io/gorm/clause"
+)
+
 // Tag is
 type Tag struct {
 	Model
@@ -18,7 +24,7 @@ func GetTag(id uint) (*Tag, error) {
 // GetAllTags 获取所有标签
 func GetAllTags() (*[]Tag, error) {
 	var tags []Tag
-	err := db.Find(&tags).Error
+	err := db.Preload(clause.Associations).Find(&tags).Error
 	return &tags, err
 }
 
@@ -36,6 +42,15 @@ func GetTagsCount() (int64, error) {
 // CreateTag 创建标签
 func CreateTag(tag *Tag) error {
 	err := db.Model(&Tag{}).Create(tag).Error
+	if err != nil {
+		return err
+	}
+	sortNos, err := GetSortNoByTableName("tag")
+	if err != nil {
+		return err
+	}
+	ids := sortNos.IDs + "," + fmt.Sprint(tag.ID)
+	err = UpdateSortNo("tag", ids)
 	return err
 }
 

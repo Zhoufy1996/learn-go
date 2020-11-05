@@ -33,10 +33,10 @@ func GetArticle(id uint) (*Article, error) {
 }
 
 // GetAllArticles is
-func GetAllArticles() ([]*Article, error) {
-	var articles []*Article
-	err := db.Find(articles).Error
-	return articles, err
+func GetAllArticles() (*[]Article, error) {
+	var articles []Article
+	err := db.Preload(clause.Associations).Find(&articles).Error
+	return &articles, err
 }
 
 // GetArticleCount is

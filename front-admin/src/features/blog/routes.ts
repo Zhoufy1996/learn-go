@@ -1,12 +1,32 @@
 /** @format */
 
 import { lazy } from 'react';
-import { routerModel } from '../../shared/router/router.model';
+import { routerModel } from '../../core/models/router.model';
 
-const loginRoutes: routerModel = {
+const blogRoutes: routerModel = {
     path: '/blog',
-    name: 'blog',
-    component: lazy(() => import('./index')),
+    name: '博客',
+    showInSiderbar: true,
+    children: [
+        {
+            path: '/tag',
+            name: '标签',
+            component: lazy(() => import('./pages/tag/index')),
+            showInSiderbar: true,
+        },
+        {
+            path: '/category',
+            name: '类别',
+            component: lazy(() => import('./pages/category/index')),
+            showInSiderbar: true,
+        },
+        {
+            path: '/article',
+            name: '文章',
+            component: lazy(() => import('./pages/article/index')),
+            showInSiderbar: true,
+        },
+    ],
 };
 
-export default loginRoutes;
+export default blogRoutes;

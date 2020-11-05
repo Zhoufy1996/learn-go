@@ -8,3 +8,28 @@
     -   左侧菜单(菜单收缩)
 
 https://stackoverflow.com/questions/16436369/is-it-possible-to-hide-extension-resources-in-the-chrome-web-inspector-network-t
+
+```
+-scheme:chrome-extension
+```
+
+```
+拖拽排序
+data: [{id:1}, {id:2}, {id:3}]
+sortNoIds: [2,1,3]
+
+props: {
+    data: {},
+    keyAttr: "id",
+    sortNoKeys: [],
+    render: (data) => Element,
+    onSort: (sortNoKeys) => {}
+}
+
+```
+
+中间中文回车bug
+
+### 功能
+1. 登录
+2. 

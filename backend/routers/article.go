@@ -11,5 +11,6 @@ func initArticleRouter(router *gin.RouterGroup) {
 
 	{
 		apiRouter.GET("/id/:id", v1.GetArticle)
+		apiRouter.GET("/all", v1.GetAllArticles)
 	}
 }

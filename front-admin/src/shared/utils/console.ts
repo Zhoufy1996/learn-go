@@ -1,7 +1,7 @@
 /** @format */
 
-const console = (message: unknown): void => {
+const customConsole = (message: unknown): void => {
     window.console.log(message);
 };
 
-export default console;
+export default customConsole;
