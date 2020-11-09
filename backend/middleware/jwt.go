@@ -22,7 +22,7 @@ func BuildToken(userID int) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"userID": userID,
 		"iat":    now.Unix(),                  // 过期时间
-		"exp":    now.AddDate(0, 0, 1).Unix(), // 签发时间
+		"exp":    now.AddDate(0, 1, 0).Unix(), // 签发时间
 	})
 	tokenString, err := token.SignedString(secrect)
 	return prefix + " " + tokenString, err

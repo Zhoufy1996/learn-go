@@ -5,13 +5,15 @@ import (
 	"backend/core/response"
 	"backend/dto"
 	"backend/middleware"
+	"backend/models"
 	"backend/services"
 
 	"github.com/gin-gonic/gin"
 )
 
 type loginRes struct {
-	Token string `json:"token"`
+	Token string       `json:"token"`
+	User  *models.User `json:"user"`
 }
 
 // Login is
@@ -34,6 +36,7 @@ func Login(c *gin.Context) {
 
 	data := &loginRes{
 		Token: token,
+		User:  u,
 	}
 	response.SuccessResult(c, data)
 }
