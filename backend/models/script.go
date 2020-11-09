@@ -51,7 +51,7 @@ func ConfigScript() {
 			SubTitle:   "sub title",
 			CategoryID: 1,
 			UserID:     1,
-			Tags:       []Tag{*tag},
+			Tags:       []*Tag{tag},
 		}
 		err = CreateArticle(newArticle)
 		if err != nil {
@@ -83,5 +83,5 @@ func SortNoScript() error {
 }
 
 func strIsTrue(str string) bool {
-	return str == "true"
+	return str == "True"
 }

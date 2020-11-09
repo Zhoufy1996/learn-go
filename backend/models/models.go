@@ -58,7 +58,7 @@ func SetUp() {
 
 	// 模型迁移
 	fmt.Println("开始迁移schema")
-	db.AutoMigrate(&Sortno{}, &Category{}, &Tag{}, &Article{}, &User{})
+	db.AutoMigrate(&Sortno{}, &Category{}, &Tag{}, &User{}, &Article{})
 
 	fmt.Println("schema迁移完毕")
 

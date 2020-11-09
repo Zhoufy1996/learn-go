@@ -9,9 +9,10 @@ import (
 // Tag is
 type Tag struct {
 	Model
-	Title       string    `gorm:"not null;unique" json:"title"`
-	Description string    `gorm:"default:''" json:"description"`
-	Articles    []Article `gorm:"many2many:article_tags;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"articles"`
+	Title       string `gorm:"not null;unique" json:"title"`
+	Description string `gorm:"default:''" json:"description"`
+	// Articles    []*Article `gorm:"many2many:article_tags;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"articles"`
+	Articles []*Article `gorm:"many2many:article_tags;" json:"articles"`
 }
 
 // GetTag 根据id获取标签
